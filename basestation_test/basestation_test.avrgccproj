@@ -12,6 +12,32 @@
     <AssemblyName>$(MSBuildProjectName)</AssemblyName>
     <Name>$(MSBuildProjectName)</Name>
     <RootNamespace>$(MSBuildProjectName)</RootNamespace>
+    <avrtool>com.atmel.avrdbg.tool.jtagicemkii</avrtool>
+    <avrtoolinterface>PDI</avrtoolinterface>
+    <com_atmel_avrdbg_tool_jtagicemkii>
+      <ToolType xmlns="">com.atmel.avrdbg.tool.jtagicemkii</ToolType>
+      <ToolName xmlns="">JTAGICE mkII</ToolName>
+      <ToolNumber xmlns="">FFFFFFFFFFFF</ToolNumber>
+      <Channel xmlns="">
+        <host>127.0.0.1</host>
+        <port>53446</port>
+        <ssl>False</ssl>
+      </Channel>
+      <ToolOptions xmlns="">
+        <InterfaceName>PDI</InterfaceName>
+        <InterfaceProperties>
+          <JtagDbgClock>1000000</JtagDbgClock>
+          <JtagProgClock>1000000</JtagProgClock>
+          <IspClock>150000</IspClock>
+          <JtagInChain>false</JtagInChain>
+          <JtagDevicesBefore>0</JtagDevicesBefore>
+          <JtagDevicesAfter>0</JtagDevicesAfter>
+          <JtagInstrBitsBefore>0</JtagInstrBitsBefore>
+          <JtagInstrBitsAfter>0</JtagInstrBitsAfter>
+          <PdiClock>0</PdiClock>
+        </InterfaceProperties>
+      </ToolOptions>
+    </com_atmel_avrdbg_tool_jtagicemkii>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
@@ -46,6 +72,8 @@
             <Value>../src/asf/common/services/sleepmgr</Value>
             <Value>../src/asf/common/services/gpio</Value>
             <Value>../src/asf/common/services/serial</Value>
+            <Value>../src/asf/xmega/drivers/adc</Value>
+            <Value>../src/asf/common/services/cpu</Value>
           </ListValues>
         </avrgcc.compiler.directories.IncludePaths>
         <avrgcc.compiler.optimization.level>Optimize for size (-Os)</avrgcc.compiler.optimization.level>
@@ -85,6 +113,8 @@
             <Value>../src/asf/common/services/sleepmgr</Value>
             <Value>../src/asf/common/services/gpio</Value>
             <Value>../src/asf/common/services/serial</Value>
+            <Value>../src/asf/xmega/drivers/adc</Value>
+            <Value>../src/asf/common/services/cpu</Value>
           </ListValues>
         </avrgcc.assembler.general.IncludePaths>
       </AvrGcc>
@@ -129,9 +159,10 @@
       <Value>../src/metormote/ant</Value>
       <Value>../src/metormote/gprs</Value>
       <Value>../src/metormote/utils</Value>
+      <Value>../src/asf/xmega/drivers/adc</Value>
+      <Value>../src/asf/common/services/cpu</Value>
     </ListValues>
   </avrgcc.compiler.directories.IncludePaths>
-  <avrgcc.compiler.optimization.level>Optimize (-O1)</avrgcc.compiler.optimization.level>
   <avrgcc.compiler.optimization.OtherFlags>-fdata-sections</avrgcc.compiler.optimization.OtherFlags>
   <avrgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>True</avrgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>
   <avrgcc.compiler.optimization.DebugLevel>Maximum (-g3)</avrgcc.compiler.optimization.DebugLevel>
@@ -166,6 +197,8 @@
       <Value>../src/asf/common/services/sleepmgr</Value>
       <Value>../src/asf/common/services/gpio</Value>
       <Value>../src/asf/common/services/serial</Value>
+      <Value>../src/asf/xmega/drivers/adc</Value>
+      <Value>../src/asf/common/services/cpu</Value>
     </ListValues>
   </avrgcc.assembler.general.IncludePaths>
 </AvrGcc>
@@ -177,6 +210,9 @@
         </InitialStack>
       </MemorySegments>
     </MemorySettings>
+    <OutputType>Executable</OutputType>
+    <GenerateEepFile>True</GenerateEepFile>
+    <GenerateHexFile>True</GenerateHexFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="src\asf.h">
@@ -224,6 +260,9 @@
     <Compile Include="src\asf\common\services\clock\xmega\sysclk.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\asf\common\services\cpu\reset_cause.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\asf\common\services\gpio\gpio.h">
       <SubType>compile</SubType>
     </Compile>
@@ -261,6 +300,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\asf\common\utils\interrupt\interrupt_avr8.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\asf\xmega\drivers\adc\adc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\asf\xmega\drivers\adc\adc.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\asf\xmega\drivers\cpu\ccp.h">
@@ -350,6 +395,9 @@
     <Compile Include="src\asf\xmega\utils\status_codes.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\config\conf_adc.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\config\conf_at45dbx.h">
       <SubType>compile</SubType>
     </Compile>
@@ -371,7 +419,31 @@
     <Compile Include="src\config\conf_usart_serial.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\debug.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\debug.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\gprs.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\gprs.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\rf.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\rf.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\test.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\test.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
@@ -389,6 +461,7 @@
     <Folder Include="src\asf\common\services\" />
     <Folder Include="src\asf\common\services\clock\" />
     <Folder Include="src\asf\common\services\clock\xmega\" />
+    <Folder Include="src\asf\common\services\cpu\" />
     <Folder Include="src\asf\common\services\gpio\" />
     <Folder Include="src\asf\common\services\gpio\xmega_ioport\" />
     <Folder Include="src\asf\common\services\serial\" />
@@ -401,6 +474,7 @@
     <Folder Include="src\asf\common\utils\interrupt\" />
     <Folder Include="src\asf\xmega\" />
     <Folder Include="src\asf\xmega\drivers\" />
+    <Folder Include="src\asf\xmega\drivers\adc\" />
     <Folder Include="src\asf\xmega\drivers\cpu\" />
     <Folder Include="src\asf\xmega\drivers\ioport\" />
     <Folder Include="src\asf\xmega\drivers\nvm\" />

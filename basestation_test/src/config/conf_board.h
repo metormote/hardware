@@ -24,5 +24,7 @@
 // Enable USARTD0.
 #define CONF_BOARD_ENABLE_USARTD0
 
+// Enable USARTE0.
+#define CONF_BOARD_ENABLE_USARTE0
 
 #endif // CONF_BOARD_H

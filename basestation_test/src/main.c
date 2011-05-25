@@ -13,12 +13,9 @@
 #include "at45dbx.h"
 #include "conf_board.h"
 
+#include "test.h"
+#include "debug.h"
 
-/* Constants */
-
-#define ANT_USART                        &USARTD0
-
-#define GPRS_USART                       &USARTC0
 
 
 // ANT USART options.
@@ -37,21 +34,34 @@ static usart_rs232_options_t GPRS_USART_OPTIONS = {
 	.stopbits = false
 };
 
-static void init(void) {
+// GPRS USART options.
+static usart_rs232_options_t DEBUG_USART_OPTIONS = {
+	.baudrate = 9600,
+	.charlength = USART_CHSIZE_8BIT_gc,
+	.paritytype = USART_PMODE_DISABLED_gc,
+	.stopbits = 1
+};
+
+static void init(void) 
+{
 	//initialize interrupt controller
 	pmic_init();
+	
 	//initialize board
 	board_init();
+	
 	//initialize system clock
 	sysclk_init();
+	
 	//initialize sleep manager
 	sleepmgr_init();
+	
 	//initialize data flash
 	at45dbx_init();
-	//initialize real time counter
-	rtc_init();
 	
-	rtc_set_time(TIME_ZERO);
+	//initialize real time counter
+//	rtc_init();
+//	rtc_set_time(TIME_ZERO);
 	
 	
 	// Initialize ant usart driver in RS232 mode
@@ -66,20 +76,26 @@ static void init(void) {
 	usart_set_tx_interrupt_level(GPRS_USART, PMIC_LVL_HIGH);
 	usart_set_dre_interrupt_level(GPRS_USART, PMIC_LVL_HIGH);
 	
-	
+	// Initialize debug usart driver in RS232 mode
+	usart_init_rs232(DEBUG_USART, &DEBUG_USART_OPTIONS);
+	usart_set_rx_interrupt_level(DEBUG_USART, PMIC_LVL_HIGH);
+	usart_set_tx_interrupt_level(DEBUG_USART, PMIC_LVL_HIGH);
+	usart_set_dre_interrupt_level(DEBUG_USART, PMIC_LVL_HIGH);
 }
 
 int main (void)
 {
-  
-	//initialize all modules
+	// initialize all modules
 	init();
 	
 	while (1)
-      ;
+	{
+		// do something useful...
+		test_main();
+	}
 
-  /* There was an error starting the OS if we reach here */
-  return (0);
+	/* There was an error starting the OS if we reach here */
+	return (0);
 	
 }
 
