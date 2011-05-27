@@ -10,12 +10,20 @@
 #ifndef RF_H_
 #define RF_H_
 
-enum status_code rf_init(void);
+typedef struct _anthdr
+{
+	uint8_t sync;
+	uint8_t len;
+	uint8_t id;
+}ANTHDR;
 
-enum status_code rf_send(uint8_t* data, uint8_t size);
-enum status_code rf_receive(uint8_t* data, uint8_t size);
+int8_t rf_init(void);
 
-enum status_code rf_sleep(uint8_t state);
-enum status_code rf_suspend(uint8_t state);
+int8_t rf_send(ANTHDR* hdr, uint8_t* data);
+int8_t rf_receive(ANTHDR* hdr, uint8_t* data);
+
+int8_t rf_reset(uint8_t state);
+int8_t rf_sleep(uint8_t state);
+int8_t rf_suspend(uint8_t state);
 
 #endif /* RF_H_ */

@@ -215,6 +215,18 @@
     <GenerateHexFile>True</GenerateHexFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="src\ant_config.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ant_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ant_core.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ant_core.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\asf.h">
       <SubType>compile</SubType>
     </Compile>

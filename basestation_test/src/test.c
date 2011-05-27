@@ -77,6 +77,43 @@ void test_rf()
 	// NOTE: in order to send data the rts signal has to be obeyed
 	// TODO: test SLEEP and nSUSPEND
 	
+	
+	// proposed test:
+	// Men skickar frames till/från ANT-kretsen som ser ut såhär
+	//
+	// syncbyte:length:msgid:data1:data2....dataN:checksum 
+	//
+	// där syncbyte är 4A
+	// length är antal databytes (N-1)
+	// checksum är XOR av alla föregående bytes inkl syncbyte
+	//
+	//
+	// Vid startup eller reset skickar ANT kretsen en startup frame som ska se ut som:
+	//
+	// 4A:01:6F:<XX>:<checksum>
+	//
+	// då ska man (tror jag skicka ett crystal enable meddelande)
+	// 4A:01:6D:00:<checksum>
+	//
+	// och få tillbaka channel response message
+	//
+	// 4A:03:40:0:6D:<code>:<checksum>
+	
+	uint8_t ret;
+	ANTHDR hdr;
+	uint8_t data[16];
+	uint8_t bufsize = sizeof(data);
+
+	rf_reset(true);
+	rf_reset(false);
+	rf_sleep(false);
+	
+	// receive startup frame...
+	hdr->len=bufsize;
+	ret = rf_receive(&hdr, data);
+	
+	// send crystal enable...
+	
 }
 	
 // - gprs (usart)
