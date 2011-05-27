@@ -12,8 +12,7 @@ enum status_code rf_send(uint8_t* data, uint8_t size)
 {
 	USART_t *usart	= ANT_USART;
 	uint8_t *p		= data;
-
-	
+  
 	// put data...
 	for (int i=0;i<size;i++)
 	{

@@ -73,10 +73,56 @@ void test_debug_usart()
 // - rf (usart)
 void test_rf()
 {
+  int i;
+  uint8_t msg[16];
 	// TODO: test usart communication e.g. read status registry
 	// NOTE: in order to send data the rts signal has to be obeyed
 	// TODO: test SLEEP and nSUSPEND
-	
+  
+  //reset ant
+  msg[0]=0x4A; //sync byte
+  msg[1]=0x01;  //data length
+  msg[2]=0x4A; //reset command
+  msg[3]=0x00;  //filler byte
+  msg[4]=msg[0] ^ msg[1] ^ msg[2] ^ msg[3]; //checksum
+  rf_send(msg, 5);
+  
+  //read startup message
+  //4A:01:6F:10:<checksum>
+  rf_receive(msg, 5);
+  for(i=0;i<5;i++) {
+    usart_putchar(&USARTE0, msg[i]);
+  }
+  
+  //enable crystal message
+	msg[0]=0x4A; //sync byte
+  msg[1]=0x01;  //data length
+  msg[2]=0x6D; //enable crystal command
+  msg[3]=0x00;  //filler byte
+  msg[4]=msg[0] ^ msg[1] ^ msg[2] ^ msg[3]; //checksum
+  rf_send(msg, 5);
+  
+  //read channel response
+  rf_receive(msg, 7);
+  for(i=0;i<5;i++) {
+    usart_putchar(&USARTE0, msg[i]);
+  }
+  
+  //request ant version
+	msg[0]=0x4A; //sync byte
+  msg[1]=0x02;  //data length
+  msg[2]=0x4D; //request info request
+  msg[3]=0x01; //channel no
+  msg[4]=0x3E;  //ant version command
+  msg[5]=msg[0] ^ msg[1] ^ msg[2] ^ msg[3] ^ msg[4]; //checksum
+  rf_send(msg, 6);
+  
+  //read ant version response
+  rf_receive(msg, 15);
+  for(i=0;i<5;i++) {
+    usart_putchar(&USARTE0, msg[i]);
+  }
+  
 }
 	
 // - gprs (usart)
