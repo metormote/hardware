@@ -104,7 +104,7 @@ void test_rf()
   
   //read channel response
   rf_receive(msg, 7);
-  for(i=0;i<5;i++) {
+  for(i=0;i<7;i++) {
     usart_putchar(&USARTE0, msg[i]);
   }
   
@@ -119,7 +119,7 @@ void test_rf()
   
   //read ant version response
   rf_receive(msg, 15);
-  for(i=0;i<5;i++) {
+  for(i=0;i<15;i++) {
     usart_putchar(&USARTE0, msg[i]);
   }
   
