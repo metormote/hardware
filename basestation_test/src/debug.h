@@ -11,7 +11,7 @@
 #ifndef DEBUG_H_
 #define DEBUG_H_
 
-void debug_print(int8_t* c);
+void debug_print(char* c);
 void debug_wait_for_step(void);
 void debug_red_led(uint8_t state);
 void debug_green_led(uint8_t state);

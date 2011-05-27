@@ -13,6 +13,7 @@
 #include "at45dbx.h"
 #include "conf_board.h"
 
+#include "rf.h"
 #include "test.h"
 #include "debug.h"
 
@@ -63,6 +64,8 @@ static void init(void)
 //	rtc_init();
 //	rtc_set_time(TIME_ZERO);
 	
+	// initialize rf circuits...
+	rf_init();
 	
 	// Initialize ant usart driver in RS232 mode
 	usart_init_rs232(ANT_USART, &ANT_USART_OPTIONS);

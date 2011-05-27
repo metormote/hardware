@@ -21,7 +21,7 @@ void test_main()
 }
 
 // include at top of every test function...
-void test_prologue(int8_t* testcase)
+void test_prologue(char* testcase)
 {
 	debug_print("Test case: ");
 	debug_print(testcase);

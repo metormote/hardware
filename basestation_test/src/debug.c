@@ -10,7 +10,7 @@
 #include "debug.h"
 
 // debug print routine...
-void debug_print(int8_t* c)
+void debug_print(char* c)
 {
 	uint8_t* p=c;
 	

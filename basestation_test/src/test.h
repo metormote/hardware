@@ -12,6 +12,8 @@
 
 void test_main(void);
 
+void test_prologue(char* testcase);
+
 void test_switch_and_leds(void);
 void test_debug_usart(void);
 void test_rf(void);
