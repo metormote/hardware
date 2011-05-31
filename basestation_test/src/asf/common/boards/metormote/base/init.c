@@ -53,12 +53,23 @@ void board_init(void)
 	ioport_configure_pin(IOPORT_CREATE_PIN(PORTE, 2), IOPORT_DIR_INPUT);
 #endif
 
+	// configure nRESET for rf...
+	ioport_configure_pin(nRF24AP2_nRESET, IOPORT_DIR_OUTPUT | IOPORT_INIT_LOW);
+	
 	// configure nSUSPEND for rf...
-	ioport_configure_pin(nRF24AP2_nSUSPEND, IOPORT_DIR_OUTPUT | IOPORT_INIT_HIGH);
+	ioport_configure_pin(nRF24AP2_nSUSPEND, IOPORT_DIR_OUTPUT | IOPORT_INIT_LOW);
 
 	// configure SLEEP for rf...
 	ioport_configure_pin(nRF24AP2_SLEEP, IOPORT_DIR_OUTPUT | IOPORT_INIT_LOW);
 
 	// configure RTS for rf...
 	ioport_configure_pin(nRF24AP2_RTS, IOPORT_DIR_INPUT);
+	
+	
+	// configure ON/OFF for gprs
+	ioport_configure_pin(GPRS_ON_OFF, IOPORT_DIR_OUTPUT | IOPORT_INIT_LOW);
+	
+	// configure RESET for gprs
+	ioport_configure_pin(GPRS_RESET, IOPORT_DIR_OUTPUT | IOPORT_INIT_LOW);
+	
 }
