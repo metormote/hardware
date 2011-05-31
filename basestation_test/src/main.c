@@ -14,6 +14,7 @@
 #include "conf_board.h"
 
 #include "rf.h"
+#include "gprs.h"
 #include "test.h"
 #include "debug.h"
 
@@ -29,7 +30,7 @@ static usart_rs232_options_t ANT_USART_OPTIONS = {
 
 // GPRS USART options.
 static usart_rs232_options_t GPRS_USART_OPTIONS = {
-	.baudrate = 38400,
+	.baudrate = 115200,
 	.charlength = USART_CHSIZE_8BIT_gc,
 	.paritytype = USART_PMODE_DISABLED_gc,
 	.stopbits = false
@@ -66,6 +67,9 @@ static void init(void)
 	
 	// initialize rf circuits...
 	rf_init();
+	
+	//
+	gprs_init();
 	
 	// Initialize ant usart driver in RS232 mode
 	usart_init_rs232(ANT_USART, &ANT_USART_OPTIONS);
