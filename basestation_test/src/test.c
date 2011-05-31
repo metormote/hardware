@@ -6,16 +6,18 @@
  */ 
 
 #include <asf.h>
+#include <util/delay.h>
 #include "test.h"
 #include "debug.h"
 #include "rf.h"
+#include "gprs.h"
 
 void test_main()
 {
-	test_debug_usart();
-	test_switch_and_leds();
+//	test_debug_usart();
+//	test_switch_and_leds();
 //	test_rf();
-//	test_gprs();
+	test_gprs();
 //	test_flash();
 //	test_rtc();
 }
@@ -73,53 +75,115 @@ void test_debug_usart()
 // - rf (usart)
 void test_rf()
 {
+	int i;
+	uint8_t msg[16];
+	
 	// TODO: test usart communication e.g. read status registry
 	// NOTE: in order to send data the rts signal has to be obeyed
 	// TODO: test SLEEP and nSUSPEND
-	
-	
-	// proposed test:
-	// Men skickar frames till/från ANT-kretsen som ser ut såhär
-	//
-	// syncbyte:length:msgid:data1:data2....dataN:checksum 
-	//
-	// där syncbyte är 4A
-	// length är antal databytes (N-1)
-	// checksum är XOR av alla föregående bytes inkl syncbyte
-	//
-	//
-	// Vid startup eller reset skickar ANT kretsen en startup frame som ska se ut som:
-	//
-	// 4A:01:6F:<XX>:<checksum>
-	//
-	// då ska man (tror jag skicka ett crystal enable meddelande)
-	// 4A:01:6D:00:<checksum>
-	//
-	// och få tillbaka channel response message
-	//
-	// 4A:03:40:0:6D:<code>:<checksum>
-	
-	uint8_t ret;
-	ANTHDR hdr;
-	uint8_t data[16];
-	uint8_t bufsize = sizeof(data);
-
+  
 	rf_reset(true);
 	rf_reset(false);
+	rf_sleep(true);
 	rf_sleep(false);
-	
-	// receive startup frame...
-	hdr->len=bufsize;
-	ret = rf_receive(&hdr, data);
-	
-	// send crystal enable...
-	
+	rf_suspend(true);
+	rf_suspend(false);
+  
+	// reset ant
+//	msg[0] = 0x4A;	// sync byte
+	msg[0] = 0xA4;	// sync byte
+	msg[1] = 0x01;	// data length
+	msg[2] = 0x4A;	// reset command
+	msg[3] = 0x00;	// filler byte
+	msg[4] = msg[0] ^ msg[1] ^ msg[2] ^ msg[3]; // checksum
+	rf_send(msg, 5);
+	_delay_ms(2000);
+  
+	// read startup message
+	// 4A:01:6F:10:<checksum>
+	rf_receive(msg, 5);
+	for(i=0; i<5; i++) 
+	{
+		usart_putchar(&USARTE0, msg[i]);
+	}
+  
+	//enable crystal message
+	msg[0]=0x4A;	// sync byte
+	msg[1]=0x01;	// data length
+	msg[2]=0x6D;	// enable crystal command
+	msg[3]=0x00;	// filler byte
+	msg[4]=msg[0] ^ msg[1] ^ msg[2] ^ msg[3]; //checksum
+	rf_send(msg, 5);
+  
+	//read channel response
+	rf_receive(msg, 7);
+	for(i=0;i<7;i++) 
+	{
+		usart_putchar(&USARTE0, msg[i]);
+	}
+  
+	//request ant version
+	msg[0]=0x4A; //sync byte
+	msg[1]=0x02;  //data length
+	msg[2]=0x4D; //request info request
+	msg[3]=0x01; //channel no
+	msg[4]=0x3E;  //ant version command
+	msg[5]=msg[0] ^ msg[1] ^ msg[2] ^ msg[3] ^ msg[4]; //checksum
+	rf_send(msg, 6);
+  
+	//read ant version response
+	rf_receive(msg, 15);
+	for(i=0;i<15;i++) 
+	{
+		usart_putchar(&USARTE0, msg[i]);
+	}
 }
 	
 // - gprs (usart)
 void test_gprs()
 {
+	uint8_t ret;
+	uint8_t msg[16];
 	// TODO: read status registry or equivalent...
+	
+	// power on the device...
+	gprs_on();
+	
+	// sanity check...
+	// any connectivity?
+	msg[0] = 'A';
+	msg[1] = 'T';
+	msg[2] = '\r';
+	msg[3] = '\n';
+	while (1)
+	ret = gprs_send(msg, 4);
+	ret = gprs_receive(msg, 16);
+	
+	// AT+CGMR: Returns the Software version information
+	msg[0] = 'A';
+	msg[1] = 'T';
+	msg[2] = '+';
+	msg[3] = 'C';
+	msg[4] = 'G';
+	msg[5] = 'M';
+	msg[6] = 'R';
+	msg[7] = '\r';
+	msg[8] = '\n';
+	ret = gprs_send(msg, 9);
+	ret = gprs_receive(msg, 16);
+	
+	// AT+CGMM: Returns the Telit Module identification
+	msg[0] = 'A';
+	msg[1] = 'T';
+	msg[2] = '+';
+	msg[3] = 'C';
+	msg[4] = 'G';
+	msg[5] = 'M';
+	msg[6] = 'M';
+	msg[7] = '\r';
+	msg[8] = '\n';
+	ret = gprs_send(msg, 9);
+	ret = gprs_receive(msg, 16);
 }
 
 // - flash
