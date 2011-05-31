@@ -17,10 +17,10 @@ typedef struct _anthdr
 	uint8_t id;
 }ANTHDR;
 
-int8_t rf_init(void);
+void rf_init(void);
 
-int8_t rf_send(ANTHDR* hdr, uint8_t* data);
-int8_t rf_receive(ANTHDR* hdr, uint8_t* data);
+int8_t rf_send(uint8_t* data, uint8_t size);
+int8_t rf_receive(uint8_t* data, uint8_t size);
 
 int8_t rf_reset(uint8_t state);
 int8_t rf_sleep(uint8_t state);
