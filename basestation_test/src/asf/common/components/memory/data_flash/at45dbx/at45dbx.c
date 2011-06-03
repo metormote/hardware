@@ -139,6 +139,15 @@
 #define AT45DBX_BYTE_ADDR_BITS            9           //!< Address bits for byte position within buffer.
 //! @}
 
+#elif AT45DBX_MEM_SIZE == AT45DBX_1MB
+
+/*! \name AT45DB081 Memories
+ */
+//! @{
+#define AT45DBX_DENSITY                   0x24        //!< Device density value.
+#define AT45DBX_BYTE_ADDR_BITS            9           //!< Address bits for byte position within buffer.
+//! @}
+
 #elif AT45DBX_MEM_SIZE == AT45DBX_2MB
 
 /*! \name AT45DB161 Memories
@@ -246,7 +255,7 @@ bool at45dbx_mem_check(void)
 		// Send the Status Register Read command.
 		at45dbx_spi_write_byte(AT45DBX_CMDC_RD_STATUS_REG);
 		// Send a dummy byte to read the status register.
-			at45dbx_spi_read_byte(&status);
+		at45dbx_spi_read_byte(&status);
 		// Unselect the checked DF memory.
 		at45dbx_chipselect_df(df, FALSE);
 		// Unexpected device density value.
