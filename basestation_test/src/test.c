@@ -154,10 +154,9 @@ void test_gprs()
 	msg[0] = 'A';
 	msg[1] = 'T';
 	msg[2] = '\r';
-	msg[3] = '\n';
-	while (1)
+	msg[3] = '\n'; // BUG: only \r ie CR shall be sent...
 	ret = gprs_send(msg, 4);
-	ret = gprs_receive(msg, 16);
+//	ret = gprs_receive(msg, 16);
 	
 	// AT+CGMR: Returns the Software version information
 	msg[0] = 'A';
@@ -170,7 +169,7 @@ void test_gprs()
 	msg[7] = '\r';
 	msg[8] = '\n';
 	ret = gprs_send(msg, 9);
-	ret = gprs_receive(msg, 16);
+//	ret = gprs_receive(msg, 16);
 	
 	// AT+CGMM: Returns the Telit Module identification
 	msg[0] = 'A';
@@ -183,7 +182,7 @@ void test_gprs()
 	msg[7] = '\r';
 	msg[8] = '\n';
 	ret = gprs_send(msg, 9);
-	ret = gprs_receive(msg, 16);
+//	ret = gprs_receive(msg, 16);
 }
 
 // - flash
