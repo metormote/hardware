@@ -56,12 +56,12 @@
 #define AT45DBX_USES_SPI_MASTER_SERVICE
 
 //! Size of AT45DBX data flash memories to manage.
-#define AT45DBX_MEM_SIZE            AT45DBX_8MB
+#define AT45DBX_MEM_SIZE            AT45DBX_1MB // NOTE: MB not Mb!
 
 //! Number of AT45DBX components to manage.
 #define AT45DBX_MEM_CNT             1
 
-//! Select the SPI module AT45DBX is conntected to
+//! Select the SPI module AT45DBX is connected to
 #define AT45DBX_SPI_MODULE          AT45DBX_SPI
 
 //! First chip select used by AT45DBX components on the SPI module instance.
