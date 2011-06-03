@@ -188,7 +188,11 @@ void test_gprs()
 // - flash
 void test_flash()
 {
+	int8_t ret;
+	
 	// TODO: read status registry or equivalent...
+	
+	ret = at45dbx_mem_check();
 }
 
 // - rtc
