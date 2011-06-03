@@ -11,8 +11,8 @@
 
 int8_t gprs_init(void);
 
-enum status_code gprs_send(uint8_t* data, uint8_t size);
-enum status_code gprs_receive(uint8_t* data, uint8_t size);
+int8_t gprs_send(uint8_t* data, uint8_t size);
+int8_t gprs_receive(uint8_t* data, uint8_t size);
 
 int8_t gprs_reset(uint8_t state);
 int8_t gprs_on(void);

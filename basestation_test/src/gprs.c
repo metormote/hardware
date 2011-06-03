@@ -18,7 +18,7 @@ int8_t gprs_init(void)
 	return STATUS_OK;
 }
 
-enum status_code gprs_send(uint8_t* data, uint8_t size)
+int8_t gprs_send(uint8_t* data, uint8_t size)
 {
 	USART_t *usart	= GPRS_USART;
 	uint8_t *p		= data;
@@ -41,13 +41,14 @@ enum status_code gprs_send(uint8_t* data, uint8_t size)
 	return STATUS_OK;
 }
 
-enum status_code gprs_receive(uint8_t* data, uint8_t size)
+int8_t gprs_receive(uint8_t* data, uint8_t size)
 {
 	USART_t *usart	= GPRS_USART;
 	uint8_t *p		= data;
 	
+	// BUG: should end on received CR...
 	// get data...
-	for (int i=0;i<size;i++)
+	for (int i=0; i<size; i++)
 	{
 		// wait for empty data register...
 		while (usart_rx_is_complete(usart) == false)
@@ -74,7 +75,7 @@ int8_t gprs_reset(uint8_t state)
 int8_t gprs_on(void)
 {
 	gpio_set_pin_high(GPRS_ON_OFF);
-	_delay_ms(5000); // NOTE_ F_CLK needs to be set properly!!!
+	_delay_ms(4000); // NOTE_ F_CLK needs to be set properly!!!
 	gpio_set_pin_low(GPRS_ON_OFF);
 	
 	return STATUS_OK;
