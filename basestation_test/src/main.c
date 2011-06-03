@@ -30,7 +30,7 @@ static usart_rs232_options_t ANT_USART_OPTIONS = {
 
 // GPRS USART options.
 static usart_rs232_options_t GPRS_USART_OPTIONS = {
-	.baudrate = 115200,
+	.baudrate = 57600,
 	.charlength = USART_CHSIZE_8BIT_gc,
 	.paritytype = USART_PMODE_DISABLED_gc,
 	.stopbits = false
