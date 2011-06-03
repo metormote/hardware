@@ -66,14 +66,13 @@
 
 //! First chip select used by AT45DBX components on the SPI module instance.
 //! AT45DBX_SPI_NPCS0_PIN always corresponds to this first NPCS, whatever it is.
-#define AT45DBX_SPI_FIRST_NPCS      AT45DBX_SPI_NPCS
+//#define AT45DBX_SPI_FIRST_NPCS      AT45DBX_SPI_NPCS
+#define AT45DBX_SPI_FIRST_NPCS      AT45DBX_CS
 
 //! SPI master speed in Hz.
 #define AT45DBX_SPI_MASTER_SPEED    12000000
 
 //! Number of bits in each SPI transfer.
 #define AT45DBX_SPI_BITS            8
-
-
 
 #endif  // _CONF_AT45DBX_H_
