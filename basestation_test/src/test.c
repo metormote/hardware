@@ -7,6 +7,7 @@
 
 #include <asf.h>
 #include <util/delay.h>
+#include <asf/common/components/memory/data_flash/at45dbx/at45dbx.h>
 #include "test.h"
 #include "debug.h"
 #include "rf.h"
@@ -16,8 +17,8 @@ void test_main()
 {
 //	test_debug_usart();
 //	test_switch_and_leds();
-//	test_rf();
-	test_gprs();
+	test_rf();
+//	test_gprs();
 //	test_flash();
 //	test_rtc();
 }
@@ -84,10 +85,15 @@ void test_rf()
   
 	rf_reset(true);
 	rf_reset(false);
+	rf_receive(msg, 5);
+	
 	rf_sleep(true);
 	rf_sleep(false);
+	rf_receive(msg, 5);
+	
 	rf_suspend(true);
 	rf_suspend(false);
+	rf_receive(msg, 5);
   
 	// reset ant
 //	msg[0] = 0x4A;	// sync byte
@@ -198,6 +204,14 @@ void test_flash()
 // - rtc
 void test_rtc()
 {
-	// TODO: read status registry or equivalent...
+	// For now skip the external RTC instead use the internal...
+	// TODO: implement simple test
 }
 
+// internal adc...
+void test_adc()
+{
+	// TODO: implement...	
+//	adc_enable(ADCA);
+//	adc_start_conversion(ADCA, 0xff);
+}
