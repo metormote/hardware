@@ -62,8 +62,8 @@ static void init(void)
 	at45dbx_init();
 	
 	//initialize real time counter
-//	rtc_init();
-//	rtc_set_time(TIME_ZERO);
+	rtc_init();
+	rtc_set_time(TIME_ZERO);
 	
 	// initialize rf circuits...
 	rf_init();
