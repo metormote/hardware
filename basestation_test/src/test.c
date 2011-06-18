@@ -17,8 +17,8 @@ void test_main()
 {
 //	test_debug_usart();
 //	test_switch_and_leds();
-	test_rf();
-//	test_gprs();
+//	test_rf();
+	test_gprs();
 //	test_flash();
 //	test_rtc();
 }
@@ -301,12 +301,14 @@ void test_rf()
 // - gprs (usart)
 void test_gprs()
 {
-	uint8_t ret;
-	uint8_t msg[16];
+	uint8_t i,ret;
+	uint8_t msg[32];
 	// TODO: read status registry or equivalent...
 	
 	// power on the device...
 	gprs_on();
+	
+	_delay_ms(2000);
 	
 	// sanity check...
 	// any connectivity?
@@ -315,33 +317,273 @@ void test_gprs()
 	msg[2] = '\r';
 	msg[3] = '\n'; // BUG: only \r ie CR shall be sent...
 	ret = gprs_send(msg, 4);
-//	ret = gprs_receive(msg, 16);
+	ret = gprs_receive(msg, 10);
 	
-	// AT+CGMR: Returns the Software version information
+	_delay_ms(50);
+	
+	msg[0] = 'A';
+	msg[1] = 'T';
+	msg[2] = 'E';
+	msg[3] = '0';
+	msg[4] = '\r';
+	msg[5] = '\n'; 
+	ret = gprs_send(msg, 6);
+	ret = gprs_receive(msg, 12);
+	
+	_delay_ms(50);
+	
+	msg[0] = 'A';
+	msg[1] = 'T';
+	msg[2] = '+';
+	msg[3] = 'I';
+	msg[4] = 'P';
+	msg[5] = 'R';
+	msg[6] = '=';
+	msg[7] = '5';
+	msg[8] = '7';
+	msg[9] = '6';
+	msg[10] = '0';
+	msg[11] = '0';
+	msg[12] = '\r';
+	msg[13] = '\n'; 
+	ret = gprs_send(msg, 14);
+	ret = gprs_receive(msg, 6);
+	
+	_delay_ms(50);
+	
 	msg[0] = 'A';
 	msg[1] = 'T';
 	msg[2] = '+';
 	msg[3] = 'C';
-	msg[4] = 'G';
-	msg[5] = 'M';
-	msg[6] = 'R';
-	msg[7] = '\r';
-	msg[8] = '\n';
-	ret = gprs_send(msg, 9);
-//	ret = gprs_receive(msg, 16);
+	msg[4] = 'M';
+	msg[5] = 'E';
+	msg[6] = 'E';
+	msg[7] = '=';
+	msg[8] = '1';
+	msg[9] = '\r';
+	msg[10] = '\n'; 
+	ret = gprs_send(msg, 11);
+	ret = gprs_receive(msg, 6);
 	
-	// AT+CGMM: Returns the Telit Module identification
+	_delay_ms(50);
+	
+	// AT#REGMODE=1: Set regmode
 	msg[0] = 'A';
 	msg[1] = 'T';
-	msg[2] = '+';
-	msg[3] = 'C';
-	msg[4] = 'G';
-	msg[5] = 'M';
+	msg[2] = '#';
+	msg[3] = 'R';
+	msg[4] = 'E';
+	msg[5] = 'G';
 	msg[6] = 'M';
-	msg[7] = '\r';
-	msg[8] = '\n';
-	ret = gprs_send(msg, 9);
-//	ret = gprs_receive(msg, 16);
+	msg[7] = 'O';
+	msg[8] = 'D';
+	msg[9] = 'E';
+	msg[10] = '=';
+	msg[11] = '1';
+	msg[12] = '\r';
+	msg[13] = '\n';
+	ret = gprs_send(msg, 14);
+	ret = gprs_receive(msg, 6);
+	
+	_delay_ms(50);
+	
+	// AT+CMGF=1: Set SMS text mode
+	msg[0] = 'A';
+	msg[1] = 'T';
+	msg[2] = '+';
+	msg[3] = 'C';
+	msg[4] = 'M';
+	msg[5] = 'G';
+	msg[6] = 'F';
+	msg[7] = '=';
+	msg[8] = '1';
+	msg[9] = '\r';
+	msg[10] = '\n';
+	ret = gprs_send(msg, 11);
+	ret = gprs_receive(msg, 6);
+	
+	_delay_ms(50);
+	
+	// AT#SMSMODE=0: Disable improved commands
+	msg[0] = 'A';
+	msg[1] = 'T';
+	msg[2] = '#';
+	msg[3] = 'S';
+	msg[4] = 'M';
+	msg[5] = 'S';
+	msg[6] = 'M';
+	msg[7] = 'O';
+	msg[8] = 'D';
+	msg[9] = 'E';
+	msg[10] = '=';
+	msg[11] = '0';
+	msg[12] = '\r';
+	msg[13] = '\n';
+	ret = gprs_send(msg, 14);
+	ret = gprs_receive(msg, 6);
+	
+	_delay_ms(50);
+	
+	// AT+CPMS="ME": Select sms memory
+	msg[0] = 'A';
+	msg[1] = 'T';
+	msg[2] = '+';
+	msg[3] = 'C';
+	msg[4] = 'P';
+	msg[5] = 'M';
+	msg[6] = 'S';
+	msg[7] = '=';
+	msg[8] = '"';
+	msg[9] = 'M';
+	msg[10] = 'E';
+	msg[11] = '"';
+	msg[12] = '\r';
+	msg[13] = '\n';
+	ret = gprs_send(msg, 14);
+	ret = gprs_receive(msg, 30);
+	
+	_delay_ms(50);
+	
+	// AT+CNMI=1,1,0,0,0: Select sms memory storage
+	msg[0] = 'A';
+	msg[1] = 'T';
+	msg[2] = '+';
+	msg[3] = 'C';
+	msg[4] = 'N';
+	msg[5] = 'M';
+	msg[6] = 'I';
+	msg[7] = '=';
+	msg[8] = '1';
+	msg[9] = ',';
+	msg[10] = '1';
+	msg[11] = ',';
+	msg[12] = '0';
+	msg[13] = ',';
+	msg[14] = '0';
+	msg[15] = ',';
+	msg[16] = '0';
+	msg[17] = '\r';
+	msg[18] = '\n';
+	ret = gprs_send(msg, 19);
+	ret = gprs_receive(msg, 6);
+	
+	_delay_ms(50);
+	
+	// AT+CSMP= 17,167,0,0: Set text mode params
+	msg[0] = 'A';
+	msg[1] = 'T';
+	msg[2] = '+';
+	msg[3] = 'C';
+	msg[4] = 'S';
+	msg[5] = 'M';
+	msg[6] = 'P';
+	msg[7] = '=';
+	msg[8] = '1';
+	msg[9] = '7';
+	msg[10] = ',';
+	msg[11] = '1';
+	msg[12] = '6';
+	msg[13] = '7';
+	msg[14] = ',';
+	msg[15] = '0';
+	msg[16] = ',';
+	msg[17] = '0';
+	msg[18] = '\r';
+	msg[19] = '\n';
+	ret = gprs_send(msg, 20);
+	ret = gprs_receive(msg, 6);
+	
+	_delay_ms(2000);
+	
+	for (i=0;i<2;i++)
+	{
+		// AT+CREG?: Query network status
+		msg[0] = 'A';
+		msg[1] = 'T';
+		msg[2] = '+';
+		msg[3] = 'C';
+		msg[4] = 'R';
+		msg[5] = 'E';
+		msg[6] = 'G';
+		msg[7] = '?';
+		msg[8] = '\r';
+		msg[9] = '\n';
+		ret = gprs_send(msg, 10);
+		ret = gprs_receive(msg, 20);
+	
+		_delay_ms(200);
+	}
+		
+	// ATD +390404X92XYX;: Voice call
+	msg[0] = 'A';
+	msg[1] = 'T';
+	msg[2] = 'D';
+	msg[3] = '+';
+	msg[4] = '4';
+	msg[5] = '6';
+	msg[6] = '7';
+	msg[7] = '0';
+	msg[8] = '8';
+	msg[9] = '5';
+	msg[10] = '2';
+	msg[11] = '2';
+	msg[12] = '1';
+	msg[13] = '6';
+	msg[14] = '4';
+	msg[15] = ';';
+	msg[16] = '\r';
+	//msg[17] = '\n';
+	//ret = gprs_send(msg, 17);
+	//ret = gprs_receive(msg,16);
+	
+	// AT+CMGS=\"%s\",145: Send sms
+	msg[0] = 'A';
+	msg[1] = 'T';
+	msg[2] = '+';
+	msg[3] = 'C';
+	msg[4] = 'M';
+	msg[5] = 'G';
+	msg[6] = 'S';
+	msg[7] = '=';
+	msg[8] = '"';
+	msg[9] = '+';
+	msg[10] = '4';
+	msg[11] = '6';
+	msg[12] = '7';
+	msg[13] = '0';
+	msg[14] = '8';
+	msg[15] = '5';
+	msg[16] = '2';
+	msg[17] = '2';
+	msg[18] = '1';
+	msg[19] = '6';
+	msg[20] = '4';
+	msg[21] = '"';
+	msg[22] = ',';
+	msg[23] = '1';
+	msg[24] = '4';
+	msg[25] = '5';
+	msg[26] = '\r';
+	//msg[27] = '\n';
+	ret = gprs_send(msg, 27);
+	ret = gprs_receive(msg, 4);
+	_delay_ms(200);
+	msg[0] = 'T';
+	msg[1] = 'e';
+	msg[2] = 's';
+	msg[3] = 't';
+	msg[4] = '1';
+	msg[5] = '2';
+	msg[6] = '3';
+	msg[7] = 0x1A;
+	msg[8] = 0x1A;
+	msg[9] = 0x1A;
+	msg[10] = '\r';
+	//msg[9] = '\n';
+	ret = gprs_send(msg, 11);
+	ret = gprs_receive(msg, 18);
+
+	msg[0] = 'T';
 }
 
 // - flash
