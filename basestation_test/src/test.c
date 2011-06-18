@@ -334,6 +334,19 @@ void test_gprs()
 	
 	msg[0] = 'A';
 	msg[1] = 'T';
+	msg[2] = '#';
+	msg[3] = 'C';
+	msg[4] = 'B';
+	msg[5] = 'C';
+	msg[6] = '\r';
+	msg[7] = '\n'; 
+	//ret = gprs_send(msg, 8);
+	//ret = gprs_receive(msg, 16);
+	
+	_delay_ms(50);
+	
+	msg[0] = 'A';
+	msg[1] = 'T';
 	msg[2] = '+';
 	msg[3] = 'I';
 	msg[4] = 'P';
@@ -533,8 +546,8 @@ void test_gprs()
 	msg[15] = ';';
 	msg[16] = '\r';
 	//msg[17] = '\n';
-	//ret = gprs_send(msg, 17);
-	//ret = gprs_receive(msg,16);
+	ret = gprs_send(msg, 17);
+	ret = gprs_receive(msg,14);
 	
 	// AT+CMGS=\"%s\",145: Send sms
 	msg[0] = 'A';
