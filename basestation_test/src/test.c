@@ -18,8 +18,8 @@ void test_main()
 //	test_debug_usart();
 //	test_switch_and_leds();
 //	test_rf();
-	test_gprs();
-//	test_flash();
+//	test_gprs();
+	test_flash();
 //	test_rtc();
 }
 
@@ -308,7 +308,7 @@ void test_gprs()
 	// power on the device...
 	gprs_on();
 	
-	_delay_ms(2000);
+	_delay_ms(4000);
 	
 	// sanity check...
 	// any connectivity?
@@ -319,8 +319,9 @@ void test_gprs()
 	ret = gprs_send(msg, 4);
 	ret = gprs_receive(msg, 10);
 	
-	_delay_ms(50);
+	_delay_ms(500);
 	
+	//echo off
 	msg[0] = 'A';
 	msg[1] = 'T';
 	msg[2] = 'E';
@@ -330,7 +331,7 @@ void test_gprs()
 	ret = gprs_send(msg, 6);
 	ret = gprs_receive(msg, 12);
 	
-	_delay_ms(50);
+	_delay_ms(500);
 	
 	msg[0] = 'A';
 	msg[1] = 'T';
@@ -343,7 +344,7 @@ void test_gprs()
 	//ret = gprs_send(msg, 8);
 	//ret = gprs_receive(msg, 16);
 	
-	_delay_ms(50);
+	_delay_ms(500);
 	
 	msg[0] = 'A';
 	msg[1] = 'T';
@@ -362,7 +363,7 @@ void test_gprs()
 	ret = gprs_send(msg, 14);
 	ret = gprs_receive(msg, 6);
 	
-	_delay_ms(50);
+	_delay_ms(500);
 	
 	msg[0] = 'A';
 	msg[1] = 'T';
@@ -378,7 +379,7 @@ void test_gprs()
 	ret = gprs_send(msg, 11);
 	ret = gprs_receive(msg, 6);
 	
-	_delay_ms(50);
+	_delay_ms(500);
 	
 	// AT#REGMODE=1: Set regmode
 	msg[0] = 'A';
@@ -398,7 +399,7 @@ void test_gprs()
 	ret = gprs_send(msg, 14);
 	ret = gprs_receive(msg, 6);
 	
-	_delay_ms(50);
+	_delay_ms(500);
 	
 	// AT+CMGF=1: Set SMS text mode
 	msg[0] = 'A';
@@ -415,7 +416,7 @@ void test_gprs()
 	ret = gprs_send(msg, 11);
 	ret = gprs_receive(msg, 6);
 	
-	_delay_ms(50);
+	_delay_ms(500);
 	
 	// AT#SMSMODE=0: Disable improved commands
 	msg[0] = 'A';
@@ -435,7 +436,7 @@ void test_gprs()
 	ret = gprs_send(msg, 14);
 	ret = gprs_receive(msg, 6);
 	
-	_delay_ms(50);
+	_delay_ms(2000);
 	
 	// AT+CPMS="ME": Select sms memory
 	msg[0] = 'A';
@@ -455,7 +456,7 @@ void test_gprs()
 	ret = gprs_send(msg, 14);
 	ret = gprs_receive(msg, 30);
 	
-	_delay_ms(50);
+	_delay_ms(500);
 	
 	// AT+CNMI=1,1,0,0,0: Select sms memory storage
 	msg[0] = 'A';
@@ -480,7 +481,7 @@ void test_gprs()
 	ret = gprs_send(msg, 19);
 	ret = gprs_receive(msg, 6);
 	
-	_delay_ms(50);
+	_delay_ms(500);
 	
 	// AT+CSMP= 17,167,0,0: Set text mode params
 	msg[0] = 'A';
@@ -587,13 +588,9 @@ void test_gprs()
 	msg[3] = 't';
 	msg[4] = '1';
 	msg[5] = '2';
-	msg[6] = '3';
+	msg[6] = '4';
 	msg[7] = 0x1A;
-	msg[8] = 0x1A;
-	msg[9] = 0x1A;
-	msg[10] = '\r';
-	//msg[9] = '\n';
-	ret = gprs_send(msg, 11);
+	ret = gprs_send(msg, 8);
 	ret = gprs_receive(msg, 18);
 
 	msg[0] = 'T';
