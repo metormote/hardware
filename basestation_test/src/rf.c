@@ -52,11 +52,11 @@ int8_t rf_receive(uint8_t* data, uint8_t size)
 		// wait for empty data register...
 		while (usart_rx_is_complete(usart) == false)
 		{}
-	
+		
 		*p = (usart)->DATA;
 		p++;
 	}
-	
+	*p=0x0;
 	return STATUS_OK;
 }
 
