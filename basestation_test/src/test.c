@@ -19,8 +19,8 @@ void test_main()
 //	test_switch_and_leds();
 //	test_rf();
 //	test_gprs();
-	test_flash();
-//	test_rtc();
+//	test_flash();
+	test_rtc();
 }
 
 // include at top of every test function...
@@ -599,11 +599,100 @@ void test_gprs()
 // - flash
 void test_flash()
 {
-	int8_t ret;
+	int i;
+	// Dataflash target sector used in this example
+    uint32_t TARGET_SECTOR=0x00002;
+	// RAM buffer used in this example
+	uint8_t ram_buf[AT45DBX_SECTOR_SIZE];
 	
-	// TODO: read status registry or equivalent...
+	gpio_set_pin_high(LED0_GPIO);
+	gpio_set_pin_high(LED1_GPIO);
 	
-	ret = at45dbx_mem_check();
+	if(at45dbx_mem_check())	{
+		gpio_set_pin_low(LED0_GPIO);		
+	} else
+	{
+		gpio_set_pin_low(LED1_GPIO);
+	}
+	
+	// Prepare half a data flash sector to 0xAA
+	for(i=0;i<AT45DBX_SECTOR_SIZE/2;i++) {
+		ram_buf[i]=0xAA;
+	}
+	// And the remaining half to 0x55
+	for(;i<AT45DBX_SECTOR_SIZE;i++) {
+		ram_buf[i]=0x55;
+	}
+
+	at45dbx_write_sector_open(TARGET_SECTOR);
+	at45dbx_write_sector_from_ram(ram_buf);
+	at45dbx_write_close();
+
+	// Read back this sector and compare to expected values
+	at45dbx_read_sector_open(TARGET_SECTOR);
+	at45dbx_read_sector_to_ram(ram_buf);
+	at45dbx_read_close();
+	for(i=0;i<AT45DBX_SECTOR_SIZE/2;i++) {
+		if (ram_buf[i]!=0xAA) {
+			gpio_set_pin_low(LED1_GPIO);
+		}
+	}
+	for(;i<AT45DBX_SECTOR_SIZE;i++) {
+		if (ram_buf[i]!=0x55) {
+			gpio_set_pin_low(LED1_GPIO);
+		}
+	}
+
+	// Write one data flash sector to 0x00, 0x01 ....	
+	for(i=0;i<AT45DBX_SECTOR_SIZE;i++) {
+		ram_buf[i]=i;
+	}
+	at45dbx_write_sector_open(TARGET_SECTOR);
+	at45dbx_write_sector_from_ram(ram_buf);
+	at45dbx_write_close();
+	
+	// Read one data flash sector to ram
+	at45dbx_read_sector_open(TARGET_SECTOR);
+	at45dbx_read_sector_to_ram(ram_buf);
+	at45dbx_read_close();
+	for(i=0;i<AT45DBX_SECTOR_SIZE;i++) {
+		if ( ram_buf[i]!=(i%0x100) ) {
+			gpio_set_pin_low(LED1_GPIO);
+		}
+	}	
+	
+	gpio_set_pin_low(LED0_GPIO);
+	
+}
+
+/**
+ * \brief Alarm callback
+ *
+ * Reschedules the alarm in 1 second.
+ */
+static void alarm(uint32_t time)
+{
+	uint8_t bcd;
+
+	/* Since the current time will give alarm when rolling over to
+	 * next time unit, we just call with that one.
+	 * This is safe to here since it's called from a time unit roll
+	 * over.
+	 */
+	rtc_set_alarm(time);
+
+	// Extract last two digits from time, and put them in bcd
+	bcd = time % 10;
+	time -= bcd;
+	time /= 10;
+	bcd = bcd | ((time % 10) << 4);
+	
+	if(bcd % 2) {
+		gpio_set_pin_low(LED1_GPIO);
+	}
+	else {
+		gpio_set_pin_high(LED1_GPIO);
+	}
 }
 
 // - rtc
@@ -611,7 +700,25 @@ void test_rtc()
 {
 	// For now skip the external RTC instead use the internal...
 	// TODO: implement simple test
+	rtc_set_callback(alarm);
+
+	cpu_irq_enable();
+
+	/* We just initialized the counter so an alarm should trigger on next
+	 * time unit roll over.
+	 */
+	rtc_set_alarm_relative(0);
+
+	while (true) {
+		/* Alarm action is handled in alarm callback so we just go to
+		 * sleep here.
+		 */
+		sleepmgr_enter_sleep();
+	}
+	
 }
+
+
 
 // internal adc...
 void test_adc()

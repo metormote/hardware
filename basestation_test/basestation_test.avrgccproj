@@ -15,15 +15,15 @@
     <avrtool>com.atmel.avrdbg.tool.jtagicemkii</avrtool>
     <avrtoolinterface>PDI</avrtoolinterface>
     <com_atmel_avrdbg_tool_jtagicemkii>
-      <ToolType xmlns="">com.atmel.avrdbg.tool.jtagicemkii</ToolType>
-      <ToolName xmlns="">JTAGICE mkII</ToolName>
-      <ToolNumber xmlns="">FFFFFFFFFFFF</ToolNumber>
-      <Channel xmlns="">
+      <ToolType>com.atmel.avrdbg.tool.jtagicemkii</ToolType>
+      <ToolName>JTAGICE mkII</ToolName>
+      <ToolNumber>FFFFFFFFFFFF</ToolNumber>
+      <Channel>
         <host>127.0.0.1</host>
-        <port>53446</port>
+        <port>1035</port>
         <ssl>False</ssl>
       </Channel>
-      <ToolOptions xmlns="">
+      <ToolOptions>
         <InterfaceName>PDI</InterfaceName>
         <InterfaceProperties>
           <JtagDbgClock>1000000</JtagDbgClock>
@@ -43,6 +43,17 @@
     <GlobalToolchainPath>C:\Program Files (x86)\Atmel\AVR Studio 5.0\AVR ToolChain\bin</GlobalToolchainPath>
     <ToolchainDirPath />
     <MakeDirPath />
+    <com_atmel_avrdbg_tool_simulator>
+      <ToolType xmlns="">com.atmel.avrdbg.tool.simulator</ToolType>
+      <ToolName xmlns="">AVR Simulator</ToolName>
+      <ToolNumber xmlns="">
+      </ToolNumber>
+      <Channel xmlns="">
+        <host>127.0.0.1</host>
+        <port>1035</port>
+        <ssl>False</ssl>
+      </Channel>
+    </com_atmel_avrdbg_tool_simulator>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
@@ -220,18 +231,6 @@
     <GenerateHexFile>True</GenerateHexFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="src\ant_config.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\ant_config.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\ant_core.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\ant_core.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="src\asf.h">
       <SubType>compile</SubType>
     </Compile>
