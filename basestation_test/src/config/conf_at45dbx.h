@@ -70,7 +70,7 @@
 #define AT45DBX_SPI_FIRST_NPCS      AT45DBX_CS
 
 //! SPI master speed in Hz.
-#define AT45DBX_SPI_MASTER_SPEED    12000000
+#define AT45DBX_SPI_MASTER_SPEED    1000000
 
 //! Number of bits in each SPI transfer.
 #define AT45DBX_SPI_BITS            8

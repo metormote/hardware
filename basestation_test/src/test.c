@@ -17,9 +17,9 @@ void test_main()
 {
 //	test_debug_usart();
 //	test_switch_and_leds();
-	test_rf();
+//	test_rf();
 //	test_gprs();
-//	test_flash();
+	test_flash();
 //	test_rtc();
 }
 
@@ -199,6 +199,21 @@ void test_flash()
 	// TODO: read status registry or equivalent...
 	
 	ret = at45dbx_mem_check();
+	gpio_set_pin_high(DATAFLASH_WP);
+	ret = at45dbx_mem_check();
+	
+	at45dbx_read_byte_open(0x00000000);
+	ret = at45dbx_read_byte();
+	at45dbx_read_close();
+
+	at45dbx_write_byte_open(0x00000000);
+	at45dbx_write_byte(0x55);
+	at45dbx_write_close();
+
+	at45dbx_read_byte_open(0x00000000);
+	ret = at45dbx_read_byte();
+	at45dbx_read_close();
+	
 }
 
 // - rtc
@@ -206,6 +221,25 @@ void test_rtc()
 {
 	// For now skip the external RTC instead use the internal...
 	// TODO: implement simple test
+	
+	uint32_t time=0;
+	uint32_t timediff=0;
+	
+	time = rtc_get_time();
+	timediff=time-timediff;
+	timediff=time;
+	time = rtc_get_time();
+	timediff=time-timediff;
+	timediff=time;
+	time = rtc_get_time();
+	timediff=time-timediff;
+	timediff=time;
+	time = rtc_get_time();
+	timediff=time-timediff;
+	timediff=time;
+	time = rtc_get_time();
+	timediff=time-timediff;
+	timediff=time;	
 }
 
 // internal adc...
