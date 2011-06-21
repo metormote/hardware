@@ -71,8 +71,4 @@
 #include <adc.h>
 #include <reset_cause.h>
 #include <wdt.h>
-#include <twis.h>
-#include <twim.h>
-#include <twi_master.h>
-#include <twi_slave.h>
 #endif // ASF_H
