@@ -18,9 +18,9 @@ void test_main()
 //	test_debug_usart();
 //	test_switch_and_leds();
 //	test_rf();
-	test_gprs();
+//	test_gprs();
 //	test_flash();
-//	test_rtc();
+	test_rtc();
 }
 
 // include at top of every test function...
@@ -308,7 +308,7 @@ void test_gprs()
 	// power on the device...
 	gprs_on();
 	
-	_delay_ms(2000);
+	_delay_ms(4000);
 	
 	// sanity check...
 	// any connectivity?
@@ -319,8 +319,9 @@ void test_gprs()
 	ret = gprs_send(msg, 4);
 	ret = gprs_receive(msg, 10);
 	
-	_delay_ms(50);
+	_delay_ms(500);
 	
+	//echo off
 	msg[0] = 'A';
 	msg[1] = 'T';
 	msg[2] = 'E';
@@ -330,7 +331,7 @@ void test_gprs()
 	ret = gprs_send(msg, 6);
 	ret = gprs_receive(msg, 12);
 	
-	_delay_ms(50);
+	_delay_ms(500);
 	
 	msg[0] = 'A';
 	msg[1] = 'T';
@@ -343,7 +344,7 @@ void test_gprs()
 	//ret = gprs_send(msg, 8);
 	//ret = gprs_receive(msg, 16);
 	
-	_delay_ms(50);
+	_delay_ms(500);
 	
 	msg[0] = 'A';
 	msg[1] = 'T';
@@ -362,7 +363,7 @@ void test_gprs()
 	ret = gprs_send(msg, 14);
 	ret = gprs_receive(msg, 6);
 	
-	_delay_ms(50);
+	_delay_ms(500);
 	
 	msg[0] = 'A';
 	msg[1] = 'T';
@@ -378,7 +379,7 @@ void test_gprs()
 	ret = gprs_send(msg, 11);
 	ret = gprs_receive(msg, 6);
 	
-	_delay_ms(50);
+	_delay_ms(500);
 	
 	// AT#REGMODE=1: Set regmode
 	msg[0] = 'A';
@@ -398,7 +399,7 @@ void test_gprs()
 	ret = gprs_send(msg, 14);
 	ret = gprs_receive(msg, 6);
 	
-	_delay_ms(50);
+	_delay_ms(500);
 	
 	// AT+CMGF=1: Set SMS text mode
 	msg[0] = 'A';
@@ -415,7 +416,7 @@ void test_gprs()
 	ret = gprs_send(msg, 11);
 	ret = gprs_receive(msg, 6);
 	
-	_delay_ms(50);
+	_delay_ms(500);
 	
 	// AT#SMSMODE=0: Disable improved commands
 	msg[0] = 'A';
@@ -435,7 +436,7 @@ void test_gprs()
 	ret = gprs_send(msg, 14);
 	ret = gprs_receive(msg, 6);
 	
-	_delay_ms(50);
+	_delay_ms(2000);
 	
 	// AT+CPMS="ME": Select sms memory
 	msg[0] = 'A';
@@ -455,7 +456,7 @@ void test_gprs()
 	ret = gprs_send(msg, 14);
 	ret = gprs_receive(msg, 30);
 	
-	_delay_ms(50);
+	_delay_ms(500);
 	
 	// AT+CNMI=1,1,0,0,0: Select sms memory storage
 	msg[0] = 'A';
@@ -480,7 +481,7 @@ void test_gprs()
 	ret = gprs_send(msg, 19);
 	ret = gprs_receive(msg, 6);
 	
-	_delay_ms(50);
+	_delay_ms(500);
 	
 	// AT+CSMP= 17,167,0,0: Set text mode params
 	msg[0] = 'A';
@@ -587,13 +588,9 @@ void test_gprs()
 	msg[3] = 't';
 	msg[4] = '1';
 	msg[5] = '2';
-	msg[6] = '3';
+	msg[6] = '4';
 	msg[7] = 0x1A;
-	msg[8] = 0x1A;
-	msg[9] = 0x1A;
-	msg[10] = '\r';
-	//msg[9] = '\n';
-	ret = gprs_send(msg, 11);
+	ret = gprs_send(msg, 8);
 	ret = gprs_receive(msg, 18);
 
 	msg[0] = 'T';
@@ -602,10 +599,71 @@ void test_gprs()
 // - flash
 void test_flash()
 {
-	int8_t ret;
+	int i;
+	// Dataflash target sector used in this example
+    uint32_t TARGET_SECTOR=0x00002;
+	// RAM buffer used in this example
+	uint8_t ram_buf[AT45DBX_SECTOR_SIZE];
 	
-	// TODO: read status registry or equivalent...
+	gpio_set_pin_high(LED0_GPIO);
+	gpio_set_pin_high(LED1_GPIO);
 	
+	if(at45dbx_mem_check())	{
+		gpio_set_pin_low(LED0_GPIO);		
+	} else
+	{
+		gpio_set_pin_low(LED1_GPIO);
+	}
+	
+	// Prepare half a data flash sector to 0xAA
+	for(i=0;i<AT45DBX_SECTOR_SIZE/2;i++) {
+		ram_buf[i]=0xAA;
+	}
+	// And the remaining half to 0x55
+	for(;i<AT45DBX_SECTOR_SIZE;i++) {
+		ram_buf[i]=0x55;
+	}
+
+	at45dbx_write_sector_open(TARGET_SECTOR);
+	at45dbx_write_sector_from_ram(ram_buf);
+	at45dbx_write_close();
+
+	// Read back this sector and compare to expected values
+	at45dbx_read_sector_open(TARGET_SECTOR);
+	at45dbx_read_sector_to_ram(ram_buf);
+	at45dbx_read_close();
+	for(i=0;i<AT45DBX_SECTOR_SIZE/2;i++) {
+		if (ram_buf[i]!=0xAA) {
+			gpio_set_pin_low(LED1_GPIO);
+		}
+	}
+	for(;i<AT45DBX_SECTOR_SIZE;i++) {
+		if (ram_buf[i]!=0x55) {
+			gpio_set_pin_low(LED1_GPIO);
+		}
+	}
+
+	// Write one data flash sector to 0x00, 0x01 ....	
+	for(i=0;i<AT45DBX_SECTOR_SIZE;i++) {
+		ram_buf[i]=i;
+	}
+	at45dbx_write_sector_open(TARGET_SECTOR);
+	at45dbx_write_sector_from_ram(ram_buf);
+	at45dbx_write_close();
+	
+	// Read one data flash sector to ram
+	at45dbx_read_sector_open(TARGET_SECTOR);
+	at45dbx_read_sector_to_ram(ram_buf);
+	at45dbx_read_close();
+	for(i=0;i<AT45DBX_SECTOR_SIZE;i++) {
+		if ( ram_buf[i]!=(i%0x100) ) {
+			gpio_set_pin_low(LED1_GPIO);
+		}
+	}	
+	
+	gpio_set_pin_low(LED0_GPIO);
+	
+<<<<<<< HEAD
 	ret = at45dbx_mem_check();
 	gpio_set_pin_high(DATAFLASH_WP);
 	ret = at45dbx_mem_check();
@@ -622,6 +680,38 @@ void test_flash()
 	ret = at45dbx_read_byte();
 	at45dbx_read_close();
 	
+=======
+}
+
+/**
+ * \brief Alarm callback
+ *
+ * Reschedules the alarm in 1 second.
+ */
+static void alarm(uint32_t time)
+{
+	uint8_t bcd;
+
+	/* Since the current time will give alarm when rolling over to
+	 * next time unit, we just call with that one.
+	 * This is safe to here since it's called from a time unit roll
+	 * over.
+	 */
+	rtc_set_alarm(time);
+
+	// Extract last two digits from time, and put them in bcd
+	bcd = time % 10;
+	time -= bcd;
+	time /= 10;
+	bcd = bcd | ((time % 10) << 4);
+	
+	if(bcd % 2) {
+		gpio_set_pin_low(LED1_GPIO);
+	}
+	else {
+		gpio_set_pin_high(LED1_GPIO);
+	}
+>>>>>>> 3134a8929eca1d9ac77379511272f642c85c0135
 }
 
 // - rtc
@@ -629,6 +719,7 @@ void test_rtc()
 {
 	// For now skip the external RTC instead use the internal...
 	// TODO: implement simple test
+<<<<<<< HEAD
 	
 	uint32_t time=0;
 	uint32_t timediff=0;
@@ -648,7 +739,27 @@ void test_rtc()
 	time = rtc_get_time();
 	timediff=time-timediff;
 	timediff=time;	
+=======
+	rtc_set_callback(alarm);
+
+	cpu_irq_enable();
+
+	/* We just initialized the counter so an alarm should trigger on next
+	 * time unit roll over.
+	 */
+	rtc_set_alarm_relative(0);
+
+	while (true) {
+		/* Alarm action is handled in alarm callback so we just go to
+		 * sleep here.
+		 */
+		sleepmgr_enter_sleep();
+	}
+	
+>>>>>>> 3134a8929eca1d9ac77379511272f642c85c0135
 }
+
+
 
 // internal adc...
 void test_adc()
