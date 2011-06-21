@@ -62,8 +62,14 @@ static void init(void)
 	at45dbx_init();
 	
 	//initialize real time counter
+	//
+	
+	osc_enable(OSC_ID_RC32KHZ);
 	rtc_init();
 	rtc_set_time(TIME_ZERO);
+	RTC.PER = 0x01;
+	RTC.INTFLAGS=0x03;
+	
 	
 	// initialize rf circuits...
 	rf_init();
@@ -94,6 +100,10 @@ int main (void)
 {
 	// initialize all modules
 	init();
+	
+	// enable interrupts...
+	irq_initialize_vectors();
+	cpu_irq_enable();	// needed for rtc to work...
 	
 	while (1)
 	{

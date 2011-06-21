@@ -1,12 +1,13 @@
 /*This file is prepared for Doxygen automatic documentation generation.*/
 /*! \file *********************************************************************
  *
- * \brief AT45DBX configuration file.
+ * \brief TWI Slave driver for AVR XMEGA.
  *
- * This file contains the possible external configuration of the AT45DBX.
+ * This file defines a useful set of functions for the TWI interface on AVR xmega
+ * devices.
  *
- * - Compiler:           IAR EWAVR32 and GNU GCC for AVR32
- * - Supported devices:  All AVR32 devices with an SPI module can be used.
+ * - Compiler:           IAR and GCC for AVR xmega
+ * - Supported devices:  All AVR XMEGA devices with an TWI module can be used.
  * - AppNote:
  *
  * \author               Atmel Corporation: http://www.atmel.com \n
@@ -41,38 +42,49 @@
  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
 
-#ifndef _CONF_AT45DBX_H_
-#define _CONF_AT45DBX_H_
+#ifndef _TWI_SLAVE_H_
+#define _TWI_SLAVE_H_
 
-#include "board.h"
+#include "compiler.h"
+#include "sysclk.h"
+#include "status_codes.h"
+#include "twis.h"
 
-//_____ D E F I N I T I O N S ______________________________________________
+typedef twi_options_t twi_slave_options_t;
 
-//! Connect AT45DBx driver to spi master service
-#define AT45DBX_USES_SPI_MASTER_SERVICE
+static inline void twi_slave_setup(TWI_t *twi,
+				   twi_slave_options_t *opt,
+				   TWI_Slave_t *twiSlave,
+				   void (*processDataFunction) (void),
+				   uint8_t address,
+				   TWI_SLAVE_INTLVL_t intLevel)
+{	
+  opt->speed_reg = TWI_BAUD(sysclk_get_cpu_hz(),opt->speed);  
 
-//! Size of AT45DBX data flash memories to manage.
-#define AT45DBX_MEM_SIZE            AT45DBX_1MB // NOTE: MB not Mb!
+#ifdef TWIC
+	if((uint16_t)twi == (uint16_t)&TWIC) {
+  		sysclk_enable_module(SYSCLK_PORT_C, PR_TWI_bm);
+	} 
+#endif
+#ifdef TWID
+	if((uint16_t)twi == (uint16_t)&TWID) {
+ 		 sysclk_enable_module(SYSCLK_PORT_D, PR_TWI_bm);		 
+	} 
+#endif	
 
-//! Number of AT45DBX components to manage.
-#define AT45DBX_MEM_CNT             1
+  TWI_SlaveInitializeDriver(twiSlave, twi, processDataFunction);
+  TWI_SlaveInitializeModule(twiSlave, address, intLevel); 
+}
 
-//! Select the SPI module AT45DBX is connected to
-#define AT45DBX_SPI_MODULE          AT45DBX_SPI
+extern int twi_slave_write(TWI_t *twi, const twi_package_t *package);
+extern int twi_slave_read(TWI_t *twi, const twi_package_t *package);
+static inline void twi_slave_enable(TWI_t *twi);
+static inline void twi_slave_disable(TWI_t *twi);
 
-//! First chip select used by AT45DBX components on the SPI module instance.
-//! AT45DBX_SPI_NPCS0_PIN always corresponds to this first NPCS, whatever it is.
-//#define AT45DBX_SPI_FIRST_NPCS      AT45DBX_SPI_NPCS
-#define AT45DBX_SPI_FIRST_NPCS      AT45DBX_CS
+#endif  // _TWI_SLAVE_H_
 
-//! SPI master speed in Hz.
-#define AT45DBX_SPI_MASTER_SPEED    1000000
 
-//! Number of bits in each SPI transfer.
-#define AT45DBX_SPI_BITS            8
-
-#endif  // _CONF_AT45DBX_H_

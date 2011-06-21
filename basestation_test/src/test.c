@@ -687,10 +687,12 @@ static void alarm(uint32_t time)
 	time /= 10;
 	bcd = bcd | ((time % 10) << 4);
 	
-	if(bcd % 2) {
+	if(bcd % 2) 
+	{
 		gpio_set_pin_low(LED1_GPIO);
 	}
-	else {
+	else 
+	{
 		gpio_set_pin_high(LED1_GPIO);
 	}
 }
@@ -708,13 +710,15 @@ void test_rtc()
 	 */
 	rtc_set_alarm_relative(0);
 
-	while (true) {
+	while (true) 
+	{
 		/* Alarm action is handled in alarm callback so we just go to
 		 * sleep here.
 		 */
 		sleepmgr_enter_sleep();
 	}
 	
+
 }
 
 
