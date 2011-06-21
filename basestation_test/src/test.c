@@ -18,13 +18,8 @@ void test_main()
 //	test_debug_usart();
 //	test_switch_and_leds();
 //	test_rf();
-<<<<<<< HEAD
-//	test_gprs();
-	test_flash();
-=======
 	test_gprs();
 //	test_flash();
->>>>>>> d13c9c4b7f129a33d3b969da1c54afd9f0346918
 //	test_rtc();
 }
 
