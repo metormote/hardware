@@ -663,24 +663,6 @@ void test_flash()
 	
 	gpio_set_pin_low(LED0_GPIO);
 	
-<<<<<<< HEAD
-	ret = at45dbx_mem_check();
-	gpio_set_pin_high(DATAFLASH_WP);
-	ret = at45dbx_mem_check();
-	
-	at45dbx_read_byte_open(0x00000000);
-	ret = at45dbx_read_byte();
-	at45dbx_read_close();
-
-	at45dbx_write_byte_open(0x00000000);
-	at45dbx_write_byte(0x55);
-	at45dbx_write_close();
-
-	at45dbx_read_byte_open(0x00000000);
-	ret = at45dbx_read_byte();
-	at45dbx_read_close();
-	
-=======
 }
 
 /**
@@ -705,13 +687,14 @@ static void alarm(uint32_t time)
 	time /= 10;
 	bcd = bcd | ((time % 10) << 4);
 	
-	if(bcd % 2) {
+	if(bcd % 2) 
+	{
 		gpio_set_pin_low(LED1_GPIO);
 	}
-	else {
+	else 
+	{
 		gpio_set_pin_high(LED1_GPIO);
 	}
->>>>>>> 3134a8929eca1d9ac77379511272f642c85c0135
 }
 
 // - rtc
@@ -719,27 +702,7 @@ void test_rtc()
 {
 	// For now skip the external RTC instead use the internal...
 	// TODO: implement simple test
-<<<<<<< HEAD
-	
-	uint32_t time=0;
-	uint32_t timediff=0;
-	
-	time = rtc_get_time();
-	timediff=time-timediff;
-	timediff=time;
-	time = rtc_get_time();
-	timediff=time-timediff;
-	timediff=time;
-	time = rtc_get_time();
-	timediff=time-timediff;
-	timediff=time;
-	time = rtc_get_time();
-	timediff=time-timediff;
-	timediff=time;
-	time = rtc_get_time();
-	timediff=time-timediff;
-	timediff=time;	
-=======
+
 	rtc_set_callback(alarm);
 
 	cpu_irq_enable();
@@ -749,14 +712,15 @@ void test_rtc()
 	 */
 	rtc_set_alarm_relative(0);
 
-	while (true) {
+	while (true) 
+	{
 		/* Alarm action is handled in alarm callback so we just go to
 		 * sleep here.
 		 */
 		sleepmgr_enter_sleep();
 	}
 	
->>>>>>> 3134a8929eca1d9ac77379511272f642c85c0135
+
 }
 
 
