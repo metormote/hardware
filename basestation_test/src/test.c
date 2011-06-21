@@ -699,7 +699,6 @@ static void alarm(uint32_t time)
 void test_rtc()
 {
 	// For now skip the external RTC instead use the internal...
-	// TODO: implement simple test
 	rtc_set_callback(alarm);
 
 	cpu_irq_enable();

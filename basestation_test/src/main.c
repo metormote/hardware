@@ -68,7 +68,7 @@ static void init(void)
 	// initialize rf circuits...
 	rf_init();
 	
-	//
+	// init gprs
 	gprs_init();
 	
 	// Initialize ant usart driver in RS232 mode

@@ -70,4 +70,9 @@
 #include <serial.h>
 #include <adc.h>
 #include <reset_cause.h>
+#include <aes.h>
+#include <ac.h>
+#include <dac.h>
+#include <dma.h>
+#include <wdt.h>
 #endif // ASF_H
