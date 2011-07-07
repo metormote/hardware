@@ -112,7 +112,7 @@
 //! 9 to 12 MHz frequency range
 #define XOSC_RANGE_9TO12      OSC_FRQRANGE_9TO12_gc
 //! 12 to 16 MHz frequency range
-#define XOSC_RANGE_12TO16     
+#define XOSC_RANGE_12TO16     OSC_FRQRANGE_12TO16_gc
 //@}
 
 /**
