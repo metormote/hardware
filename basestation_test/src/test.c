@@ -17,10 +17,10 @@ void test_main()
 {
 //	test_debug_usart();
 //	test_switch_and_leds();
-//	test_rf();
+	test_rf();
 //	test_gprs();
 //	test_flash();
-	test_rtc();
+//	test_rtc();
 }
 
 // include at top of every test function...
@@ -85,11 +85,13 @@ void test_rf()
 	// TODO: test usart communication e.g. read status registry
 	// NOTE: in order to send data the rts signal has to be obeyed
 	// TODO: test SLEEP and nSUSPEND
-  
+	
 	rf_reset(true);
 	rf_reset(false);
 	rf_receive(msg, 5);
+	//_delay_ms(5000);
 	
+
 	rf_sleep(true);
 	rf_sleep(false);
 	//rf_receive(msg, 5);
@@ -105,7 +107,7 @@ void test_rf()
 	msg[3]=0x00;	// filler byte
 	msg[4]=msg[0] ^ msg[1] ^ msg[2] ^ msg[3]; //checksum
 	rf_send(msg, 5);
-  
+
 	//read channel response
 	rf_receive(msg, 7);
 	for(i=0;i<7;i++) 
@@ -333,6 +335,7 @@ void test_gprs()
 	
 	_delay_ms(500);
 	
+	//check battery level
 	msg[0] = 'A';
 	msg[1] = 'T';
 	msg[2] = '#';
@@ -346,6 +349,7 @@ void test_gprs()
 	
 	_delay_ms(500);
 	
+	//set port speed
 	msg[0] = 'A';
 	msg[1] = 'T';
 	msg[2] = '+';
@@ -365,6 +369,7 @@ void test_gprs()
 	
 	_delay_ms(500);
 	
+	//disable verbose error
 	msg[0] = 'A';
 	msg[1] = 'T';
 	msg[2] = '+';

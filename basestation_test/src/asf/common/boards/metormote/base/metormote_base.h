@@ -54,10 +54,16 @@
 /*! \name External oscillator
  */
 //@{
-#define BOARD_XOSC_HZ          32768
-#define BOARD_XOSC_TYPE        XOSC_TYPE_32KHZ
-#define BOARD_XOSC_STARTUP_US  500000
+#define BOARD_XOSC_HZ          16000000
+#define BOARD_XOSC_TYPE        XOSC_TYPE_XTAL
+#define BOARD_XOSC_STARTUP_US  1000
+//#define BOARD_XOSC_HZ          32768
+//#define BOARD_XOSC_TYPE        XOSC_TYPE_32KHZ
+//#define BOARD_XOSC_STARTUP_US  500000
 //@}
+
+#define F_CPU   16000000UL
+
 
 #define nRF24AP2_nSUSPEND	IOPORT_CREATE_PIN(PORTB, 0)
 #define nRF24AP2_SLEEP		IOPORT_CREATE_PIN(PORTB, 1)
