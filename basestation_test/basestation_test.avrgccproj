@@ -91,11 +91,9 @@
       <Value>../src/asf/xmega/drivers/adc</Value>
       <Value>../src/asf/common/services/cpu</Value>
       <Value>../src/asf/xmega/drivers/aes</Value>
-      <Value>../src/asf/xmega/drivers/ac</Value>
-      <Value>../src/asf/xmega/drivers/dac</Value>
-      <Value>../src/asf/xmega/drivers/dma</Value>
       <Value>../src/asf/xmega/drivers/wdt</Value>
-      <Value>../src/asf/common/services/hugemem</Value>
+      <Value>../src/asf/xmega/drivers/twi</Value>
+      <Value>../src/asf/common/services/twi</Value>
     </ListValues>
   </avrgcc.compiler.directories.IncludePaths>
   <avrgcc.compiler.optimization.level>Optimize for size (-Os)</avrgcc.compiler.optimization.level>
@@ -138,11 +136,9 @@
       <Value>../src/asf/xmega/drivers/adc</Value>
       <Value>../src/asf/common/services/cpu</Value>
       <Value>../src/asf/xmega/drivers/aes</Value>
-      <Value>../src/asf/xmega/drivers/ac</Value>
-      <Value>../src/asf/xmega/drivers/dac</Value>
-      <Value>../src/asf/xmega/drivers/dma</Value>
       <Value>../src/asf/xmega/drivers/wdt</Value>
-      <Value>../src/asf/common/services/hugemem</Value>
+      <Value>../src/asf/xmega/drivers/twi</Value>
+      <Value>../src/asf/common/services/twi</Value>
     </ListValues>
   </avrgcc.assembler.general.IncludePaths>
 </AvrGcc>
@@ -190,11 +186,9 @@
       <Value>../src/asf/xmega/drivers/adc</Value>
       <Value>../src/asf/common/services/cpu</Value>
       <Value>../src/asf/xmega/drivers/aes</Value>
-      <Value>../src/asf/xmega/drivers/ac</Value>
-      <Value>../src/asf/xmega/drivers/dac</Value>
-      <Value>../src/asf/xmega/drivers/dma</Value>
       <Value>../src/asf/xmega/drivers/wdt</Value>
-      <Value>../src/asf/common/services/hugemem</Value>
+      <Value>../src/asf/xmega/drivers/twi</Value>
+      <Value>../src/asf/common/services/twi</Value>
     </ListValues>
   </avrgcc.compiler.directories.IncludePaths>
   <avrgcc.compiler.optimization.OtherFlags>-fdata-sections</avrgcc.compiler.optimization.OtherFlags>
@@ -234,11 +228,9 @@
       <Value>../src/asf/xmega/drivers/adc</Value>
       <Value>../src/asf/common/services/cpu</Value>
       <Value>../src/asf/xmega/drivers/aes</Value>
-      <Value>../src/asf/xmega/drivers/ac</Value>
-      <Value>../src/asf/xmega/drivers/dac</Value>
-      <Value>../src/asf/xmega/drivers/dma</Value>
       <Value>../src/asf/xmega/drivers/wdt</Value>
-      <Value>../src/asf/common/services/hugemem</Value>
+      <Value>../src/asf/xmega/drivers/twi</Value>
+      <Value>../src/asf/common/services/twi</Value>
     </ListValues>
   </avrgcc.assembler.general.IncludePaths>
 </AvrGcc>
@@ -315,18 +307,6 @@
     <Compile Include="src\asf\common\services\gpio\xmega_ioport\xmega_gpio.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\asf\common\services\hugemem\avr8\avr8_hugemem.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\asf\common\services\hugemem\avr8\hugemem.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\asf\common\services\hugemem\generic\hugemem.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\asf\common\services\hugemem\hugemem.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="src\asf\common\services\serial\serial.h">
       <SubType>compile</SubType>
     </Compile>
@@ -354,28 +334,28 @@
     <Compile Include="src\asf\common\services\spi\xmega_spi\spi_master.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\asf\common\services\twi\twi_master.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\asf\common\services\twi\twi_slave.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\asf\common\services\twi\xmega_twi\twi_master.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\asf\common\services\twi\xmega_twi\twi_slave.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\asf\common\utils\interrupt.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\asf\common\utils\interrupt\interrupt_avr8.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\asf\xmega\drivers\ac\ac.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\asf\xmega\drivers\ac\ac.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="src\asf\xmega\drivers\adc\adc.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\asf\xmega\drivers\adc\adc.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\asf\xmega\drivers\aes\aes.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\asf\xmega\drivers\aes\aes.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\asf\xmega\drivers\cpu\ccp.h">
@@ -385,18 +365,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\asf\xmega\drivers\cpu\xmega_reset_cause.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\asf\xmega\drivers\dac\dac.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\asf\xmega\drivers\dac\dac.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\asf\xmega\drivers\dma\dma.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\asf\xmega\drivers\dma\dma.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\asf\xmega\drivers\ioport\ioport.c">
@@ -436,6 +404,21 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\asf\xmega\drivers\tc\tc.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\asf\xmega\drivers\twi\twim.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\asf\xmega\drivers\twi\twim.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\asf\xmega\drivers\twi\twis.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\asf\xmega\drivers\twi\twis.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\asf\xmega\drivers\twi\twi_common.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\asf\xmega\drivers\usart\usart.c">
@@ -558,15 +541,14 @@
     <Folder Include="src\asf\common\services\cpu\" />
     <Folder Include="src\asf\common\services\gpio\" />
     <Folder Include="src\asf\common\services\gpio\xmega_ioport\" />
-    <Folder Include="src\asf\common\services\hugemem\" />
-    <Folder Include="src\asf\common\services\hugemem\avr8\" />
-    <Folder Include="src\asf\common\services\hugemem\generic\" />
     <Folder Include="src\asf\common\services\serial\" />
     <Folder Include="src\asf\common\services\serial\xmega_usart\" />
     <Folder Include="src\asf\common\services\sleepmgr\" />
     <Folder Include="src\asf\common\services\sleepmgr\xmega\" />
     <Folder Include="src\asf\common\services\spi\" />
     <Folder Include="src\asf\common\services\spi\xmega_spi\" />
+    <Folder Include="src\asf\common\services\twi\" />
+    <Folder Include="src\asf\common\services\twi\xmega_twi\" />
     <Folder Include="src\asf\common\utils\" />
     <Folder Include="src\asf\common\utils\interrupt\" />
     <Folder Include="src\asf\xmega\" />
@@ -584,6 +566,7 @@
     <Folder Include="src\asf\xmega\drivers\sleep\" />
     <Folder Include="src\asf\xmega\drivers\spi\" />
     <Folder Include="src\asf\xmega\drivers\tc\" />
+    <Folder Include="src\asf\xmega\drivers\twi\" />
     <Folder Include="src\asf\xmega\drivers\usart\" />
     <Folder Include="src\asf\xmega\drivers\wdt\" />
     <Folder Include="src\asf\xmega\utils\" />
