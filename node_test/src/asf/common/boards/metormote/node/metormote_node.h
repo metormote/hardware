@@ -21,15 +21,15 @@
 /*! \name GPIO Connections of LEDs
  */
 //! @{
-#  define LED0_GPIO   IOPORT_CREATE_PIN(PORTA,4)
-#  define LED1_GPIO   IOPORT_CREATE_PIN(PORTA,5)
+#  define LED0_GPIO   IOPORT_CREATE_PIN(PORTA,5)	// red LED...
+#  define LED1_GPIO   IOPORT_CREATE_PIN(PORTA,6)	// green LED...
 //! @}
 
 
 /*! \name GPIO Connections of Push Buttons
  */
 //! @{
-#  define GPIO_PUSH_BUTTON_0	IOPORT_CREATE_PIN(PORTA,3)
+#  define GPIO_PUSH_BUTTON_0	IOPORT_CREATE_PIN(PORTA,4)
 //! @}
 
 /*! \name SPI Connections of the AT45DBX Data Flash Memory
@@ -43,7 +43,7 @@
 #define AT45DBX_MASTER_MISO   IOPORT_CREATE_PIN(PORTC,6)  // MISO as input
 #define AT45DBX_SPI_CLK_MASK  SYSCLK_PORT_C
 
-//! @}
+//! @}s
 
 
 /*! \name External oscillator
@@ -60,10 +60,10 @@
 #define F_CPU   16000000UL
 
 
-#define nRF24AP2_nSUSPEND	IOPORT_CREATE_PIN(PORTB, 0)
-#define nRF24AP2_SLEEP		IOPORT_CREATE_PIN(PORTB, 1)
-#define nRF24AP2_RTS		IOPORT_CREATE_PIN(PORTB, 2)
-#define nRF24AP2_nRESET		IOPORT_CREATE_PIN(PORTD, 0)
+#define nRF24AP2_nSUSPEND	IOPORT_CREATE_PIN(PORTD, 7)
+#define nRF24AP2_SLEEP		IOPORT_CREATE_PIN(PORTD, 4)
+#define nRF24AP2_RTS		IOPORT_CREATE_PIN(PORTD, 6)
+#define nRF24AP2_nRESET		IOPORT_CREATE_PIN(PORTD, 5)
 
 
 /* Constants */

@@ -1,2 +1,4 @@
 
 /basestation_test/Debug
+*.o
+*.d

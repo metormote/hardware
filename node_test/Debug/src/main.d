@@ -74,7 +74,10 @@ src/main.d src/main.o: ../src/main.c ../src/asf.h \
  ../src/asf/common/services/twi/xmega_twi/twi_slave.h \
  ../src/asf/common/services/twi/twi_master.h \
  ../src/asf/common/services/twi/xmega_twi/twi_master.h \
- ../src/asf/common/services/twi/xmega_twi/twi_slave.h
+ ../src/asf/common/services/twi/xmega_twi/twi_slave.h \
+ c:\program\ files\ (x86)\atmel\avr\ studio\ 5.0\avr\ toolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h \
+ c:\program\ files\ (x86)\atmel\avr\ studio\ 5.0\avr\ toolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay_basic.h \
+ ../src/rf.h ../src/test.h ../src/debug.h
 
 ../src/asf.h:
 
@@ -247,3 +250,13 @@ c:\program\ files\ (x86)\atmel\avr\ studio\ 5.0\avr\ toolchain\bin\../lib/gcc/av
 ../src/asf/common/services/twi/xmega_twi/twi_master.h:
 
 ../src/asf/common/services/twi/xmega_twi/twi_slave.h:
+
+c:\program\ files\ (x86)\atmel\avr\ studio\ 5.0\avr\ toolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h:
+
+c:\program\ files\ (x86)\atmel\avr\ studio\ 5.0\avr\ toolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay_basic.h:
+
+../src/rf.h:
+
+../src/test.h:
+
+../src/debug.h:

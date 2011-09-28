@@ -24,15 +24,13 @@ void board_init(void)
 
 // RF...
 #ifdef CONF_BOARD_ENABLE_USARTD0
-	ioport_configure_pin(IOPORT_CREATE_PIN(PORTD, 3), IOPORT_DIR_OUTPUT
-			| IOPORT_INIT_HIGH);
+	ioport_configure_pin(IOPORT_CREATE_PIN(PORTD, 3), IOPORT_DIR_OUTPUT | IOPORT_INIT_HIGH);
 	ioport_configure_pin(IOPORT_CREATE_PIN(PORTD, 2), IOPORT_DIR_INPUT);
 #endif
 
 // debug...
 #ifdef CONF_BOARD_ENABLE_USARTE0
-	ioport_configure_pin(IOPORT_CREATE_PIN(PORTE, 3), IOPORT_DIR_OUTPUT
-			| IOPORT_INIT_HIGH);
+	ioport_configure_pin(IOPORT_CREATE_PIN(PORTE, 3), IOPORT_DIR_OUTPUT | IOPORT_INIT_HIGH);
 	ioport_configure_pin(IOPORT_CREATE_PIN(PORTE, 2), IOPORT_DIR_INPUT);
 #endif
 
@@ -47,6 +45,4 @@ void board_init(void)
 
 	// configure RTS for rf...
 	ioport_configure_pin(nRF24AP2_RTS, IOPORT_DIR_INPUT);
-	
-	
 }

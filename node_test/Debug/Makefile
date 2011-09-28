@@ -117,7 +117,11 @@ C_SRCS +=  \
 ../src/asf/xmega/drivers/twi/twis.c \
 ../src/asf/xmega/drivers/usart/usart.c \
 ../src/asf/xmega/drivers/wdt/wdt.c \
-../src/main.c
+../src/debug.c \
+../src/main.c \
+../src/rf.c \
+../src/sensors.c \
+../src/test.c
 
 
 PREPROCESSING_SRCS +=  \
@@ -153,7 +157,11 @@ src/asf/xmega/drivers/twi/twim.o \
 src/asf/xmega/drivers/twi/twis.o \
 src/asf/xmega/drivers/usart/usart.o \
 src/asf/xmega/drivers/wdt/wdt.o \
-src/main.o
+src/debug.o \
+src/main.o \
+src/rf.o \
+src/sensors.o \
+src/test.o
 
 
 OBJS_AS_ARGS +=  \
@@ -181,7 +189,11 @@ src/asf/xmega/drivers/twi/twim.o \
 src/asf/xmega/drivers/twi/twis.o \
 src/asf/xmega/drivers/usart/usart.o \
 src/asf/xmega/drivers/wdt/wdt.o \
-src/main.o
+src/debug.o \
+src/main.o \
+src/rf.o \
+src/sensors.o \
+src/test.o
 
 
 C_DEPS +=  \
@@ -207,7 +219,11 @@ src/asf/xmega/drivers/twi/twim.d \
 src/asf/xmega/drivers/twi/twis.d \
 src/asf/xmega/drivers/usart/usart.d \
 src/asf/xmega/drivers/wdt/wdt.d \
-src/main.d
+src/debug.d \
+src/main.d \
+src/rf.d \
+src/sensors.d \
+src/test.d
 
 
 C_DEPS_AS_ARGS +=  \
@@ -233,7 +249,11 @@ src/asf/xmega/drivers/twi/twim.d \
 src/asf/xmega/drivers/twi/twis.d \
 src/asf/xmega/drivers/usart/usart.d \
 src/asf/xmega/drivers/wdt/wdt.d \
-src/main.d
+src/debug.d \
+src/main.d \
+src/rf.d \
+src/sensors.d \
+src/test.d
 
 
 OUTPUT_FILE_PATH +=node_test.elf
@@ -258,11 +278,19 @@ MAP_FILE_PATH_AS_ARGS =node_test.map
 
 LIB_AS_ARGS +=libnode_test.a
 
-ADDITIONAL_DEPENDENCIES:= size
+ADDITIONAL_DEPENDENCIES:= $(HEX_FLASH_FILE_PATH) $(LSS_FILE_PATH) $(HEX_EEPROM_FILE_PATH) size
 
 OUTPUT_FILE_DEP:= ./makedep.mk
 
 # AVR/GNU C Compiler
+
+
+
+
+
+
+
+
 
 
 
@@ -470,7 +498,7 @@ all: $(OUTPUT_FILE_PATH) $(ADDITIONAL_DEPENDENCIES)
 $(OUTPUT_FILE_PATH): $(OBJS) $(USER_OBJS) $(OUTPUT_FILE_DEP)
 	@echo Building target: $@
 	@echo Invoking: AVR/GNU C/C++ Linker
-	$(QUOTE)$(AVR_APP_PATH)avr-gcc.exe$(QUOTE) -Wl,--gc-sections -mrelax -Wl,--relax  -mmcu=atxmega32a4   -o$(OUTPUT_FILE_PATH_AS_ARGS) $(OBJS_AS_ARGS) $(USER_OBJS) $(LIBS)
+	$(QUOTE)$(AVR_APP_PATH)avr-gcc.exe$(QUOTE) -Wl,--gc-sections -mrelax -Wl,--relax  -mmcu=atxmega32a4  -Wl,-Map=$(MAP_FILE_PATH_AS_ARGS) -o$(OUTPUT_FILE_PATH_AS_ARGS) $(OBJS_AS_ARGS) $(USER_OBJS) $(LIBS)
 	@echo Finished building target: $@
 
 

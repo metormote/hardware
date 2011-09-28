@@ -50,5 +50,13 @@ src\asf\xmega\drivers\usart\usart.c
 
 src\asf\xmega\drivers\wdt\wdt.c
 
+src\debug.c
+
 src\main.c
+
+src\rf.c
+
+src\sensors.c
+
+src\test.c
 
