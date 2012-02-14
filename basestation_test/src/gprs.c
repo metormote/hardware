@@ -75,7 +75,7 @@ int8_t gprs_reset()
 int8_t gprs_on(void)
 {
 	gpio_set_pin_high(GPRS_ON_OFF);
-	_delay_ms(4000); // NOTE_ F_CLK needs to be set properly!!!
+	_delay_ms(100); // NOTE_ F_CLK needs to be set properly!!!
 	gpio_set_pin_low(GPRS_ON_OFF);
 	
 	return STATUS_OK;

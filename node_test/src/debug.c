@@ -26,7 +26,7 @@ void debug_print(char* c)
 void debug_wait_for_step()
 {
 	debug_print("Press push button to continue");
-	while (gpio_pin_is_high(GPIO_PUSH_BUTTON_0))
+	while (gpio_pin_is_high(GPIO_SWITCH))
 	{}
 }
 
@@ -35,11 +35,11 @@ void debug_red_led(uint8_t state)
 {
 	if (state)
 	{
-		gpio_set_pin_low(LED1_GPIO);
+		gpio_set_pin_low(GPIO_LED_RED);
 	} 
 	else
 	{
-		gpio_set_pin_high(LED1_GPIO);
+		gpio_set_pin_high(GPIO_LED_RED);
 	}
 	
 }
@@ -48,11 +48,11 @@ void debug_green_led(uint8_t state)
 {
 	if (state)
 	{
-		gpio_set_pin_low(LED0_GPIO);
+		gpio_set_pin_low(GPIO_LED_GREEN);
 	} 
 	else
 	{
-		gpio_set_pin_high(LED0_GPIO);
+		gpio_set_pin_high(GPIO_LED_GREEN);
 	}
 	
 }

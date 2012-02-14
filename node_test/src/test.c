@@ -7,7 +7,6 @@
 
 #include <asf.h>
 #include <util/delay.h>
-//#include <asf/common/components/memory/data_flash/at45dbx/at45dbx.h>
 #include "test.h"
 #include "debug.h"
 #include "rf.h"
@@ -17,7 +16,7 @@ void test_main()
 {
 //	test_debug_usart();
 	test_switch_and_leds();
-//	test_rf();
+	test_rf();
 //	test_flash();
 //	test_rtc();
 }
@@ -40,23 +39,35 @@ void test_switch_and_leds()
 	test_prologue("Switch and LEDs...\n");
 
 	// init
-	gpio_set_pin_high(LED0_GPIO);
-	gpio_set_pin_high(LED1_GPIO);
+	gpio_set_pin_high(GPIO_LED_RED);
+	gpio_set_pin_high(GPIO_LED_GREEN);
+	gpio_set_pin_high(GPIO_LED_YELLOW);
+	gpio_set_pin_high(GPIO_LED_ORANGE);
 	
-//	debug_print("Step 1. LED0");
+//	debug_print("Step 1. GPIO_LED_RED");
 	debug_wait_for_step();
-	gpio_set_pin_low(LED0_GPIO);
+	gpio_set_pin_low(GPIO_LED_RED);
 	
-//	debug_print("Step 2. LED1");
+//	debug_print("Step 2. GPIO_LED_GREEN");
 	debug_wait_for_step();
-	gpio_set_pin_low(LED1_GPIO);
+	gpio_set_pin_low(GPIO_LED_GREEN);
+	
+//	debug_print("Step 3. GPIO_LED_YELLOW");
+	debug_wait_for_step();
+	gpio_set_pin_low(GPIO_LED_YELLOW);
+	
+//	debug_print("Step 4. GPIO_LED_ORANGE");
+	debug_wait_for_step();
+	gpio_set_pin_low(GPIO_LED_ORANGE);
 	
 //	debug_print("Finished");
 	debug_wait_for_step();
 	
 	// exit
-	gpio_set_pin_high(LED0_GPIO);
-	gpio_set_pin_high(LED1_GPIO);
+	gpio_set_pin_high(GPIO_LED_RED);
+	gpio_set_pin_high(GPIO_LED_GREEN);
+	gpio_set_pin_high(GPIO_LED_YELLOW);
+	gpio_set_pin_high(GPIO_LED_ORANGE);
 }
 
 void test_debug_usart()
@@ -295,7 +306,7 @@ void test_rf()
 		}
 		
 		_delay_ms(1000);
-	}
+  	}
 	
 }
 	
@@ -394,11 +405,11 @@ static void alarm(uint32_t time)
 	
 	if(bcd % 2) 
 	{
-		gpio_set_pin_low(LED1_GPIO);
+		gpio_set_pin_low(GPIO_LED_RED);
 	}
 	else 
 	{
-		gpio_set_pin_high(LED1_GPIO);
+		gpio_set_pin_high(GPIO_LED_RED);
 	}
 }
 

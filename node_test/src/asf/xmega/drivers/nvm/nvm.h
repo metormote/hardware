@@ -325,6 +325,7 @@ void nvm_read_device_serial(struct nvm_device_serial *storage);
  *       the program space reads will be corrupted.
  * @{
  */
+#define CONFIG_NVM_IGNORE_XMEGA_A3_D3_REVB_ERRATA
 
 #ifndef EEPROM_PAGE_SIZE
 #  if XMEGA_A || XMEGA_D

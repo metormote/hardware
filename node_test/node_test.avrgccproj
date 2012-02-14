@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>5.0</ProjectVersion>
     <ProjectGuid>{62320c5c-81eb-4bd1-9079-349b7144831e}</ProjectGuid>
-    <avrdevice>ATxmega32A4</avrdevice>
+    <avrdevice>ATxmega128A3</avrdevice>
     <avrdeviceseries>xmegaa</avrdeviceseries>
     <OutputFile>$(MSBuildProjectName).elf</OutputFile>
     <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
@@ -22,10 +22,10 @@
     <com_atmel_avrdbg_tool_jtagicemkii>
       <ToolType>com.atmel.avrdbg.tool.jtagicemkii</ToolType>
       <ToolName>JTAGICE mkII</ToolName>
-      <ToolNumber>090000006CC7</ToolNumber>
+      <ToolNumber>FFFFFFFFFFFF</ToolNumber>
       <Channel>
         <host>127.0.0.1</host>
-        <port>58767</port>
+        <port>1253</port>
         <ssl>False</ssl>
       </Channel>
       <ToolOptions>
@@ -43,7 +43,8 @@
         </InterfaceProperties>
       </ToolOptions>
     </com_atmel_avrdbg_tool_jtagicemkii>
-    <avrtoolinterface>PDI</avrtoolinterface>
+    <avrtoolinterface>
+    </avrtoolinterface>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
@@ -148,105 +149,105 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <ToolchainSettings>
       <AvrGcc>
-        <avrgcc.compiler.symbols.DefSymbols>
-          <ListValues>
-            <Value>BOARD=METORMOTE_NODE</Value>
-          </ListValues>
-        </avrgcc.compiler.symbols.DefSymbols>
-        <avrgcc.compiler.directories.IncludePaths>
-          <ListValues>
-            <Value>../src</Value>
-            <Value>../src/asf/common/applications/user_application/user_board</Value>
-            <Value>../src/asf/common/boards</Value>
-            <Value>../src/asf/common/utils</Value>
-            <Value>../src/asf/xmega/utils</Value>
-            <Value>../src/asf/xmega/utils/preprocessor</Value>
-            <Value>../src/config</Value>
-            <Value>../src/asf/xmega/drivers/aes</Value>
-            <Value>../src/asf/xmega/drivers/ac</Value>
-            <Value>../src/asf/xmega/drivers/adc</Value>
-            <Value>../src/asf/xmega/drivers/dac</Value>
-            <Value>../src/asf/xmega/drivers/cpu</Value>
-            <Value>../src/asf/xmega/drivers/pmic</Value>
-            <Value>../src/asf/xmega/drivers/sleep</Value>
-            <Value>../src/asf/xmega/drivers/ioport</Value>
-            <Value>../src/asf/xmega/drivers/dma</Value>
-            <Value>../src/asf/xmega/drivers/nvm</Value>
-            <Value>../src/asf/xmega/drivers/spi</Value>
-            <Value>../src/asf/xmega/drivers/rtc</Value>
-            <Value>../src/asf/xmega/drivers/tc</Value>
-            <Value>../src/asf/xmega/drivers/wdt</Value>
-            <Value>../src/asf/xmega/drivers/twi</Value>
-            <Value>../src/asf/xmega/drivers/usart</Value>
-            <Value>../src/asf/common/utils/stdio/stdio_serial</Value>
-            <Value>../src/asf/common/services/cpu</Value>
-            <Value>../src/asf/common/services/sleepmgr</Value>
-            <Value>../src/asf/common/services/gpio</Value>
-            <Value>../src/asf/common/services/hugemem</Value>
-            <Value>../src/asf/common/services/spi/xmega_spi</Value>
-            <Value>../src/asf/common/services/spi</Value>
-            <Value>../src/asf/common/services/clock</Value>
-            <Value>../src/asf/common/services/twi</Value>
-            <Value>../src/asf/common/services/serial</Value>
-            <Value>../src/asf/common/boards/metormote/node</Value>
-          </ListValues>
-        </avrgcc.compiler.directories.IncludePaths>
-        <avrgcc.compiler.optimization.level>Optimize (-O1)</avrgcc.compiler.optimization.level>
-        <avrgcc.compiler.optimization.OtherFlags>-fdata-sections</avrgcc.compiler.optimization.OtherFlags>
-        <avrgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>True</avrgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>
-        <avrgcc.compiler.optimization.DebugLevel>Maximum (-g3)</avrgcc.compiler.optimization.DebugLevel>
-        <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
-        <avrgcc.compiler.miscellaneous.OtherFlags>-std=gnu99 -Wstrict-prototypes -Wmissing-prototypes -Werror-implicit-function-declaration -Wpointer-arith -mrelax</avrgcc.compiler.miscellaneous.OtherFlags>
-        <avrgcc.linker.optimization.GarbageCollectUnusedSections>True</avrgcc.linker.optimization.GarbageCollectUnusedSections>
-        <avrgcc.linker.optimization.RelaxBranches>True</avrgcc.linker.optimization.RelaxBranches>
-        <avrgcc.linker.miscellaneous.LinkerFlags>-Wl,--relax</avrgcc.linker.miscellaneous.LinkerFlags>
-        <avrgcc.assembler.general.AssemblerFlags>-mrelax</avrgcc.assembler.general.AssemblerFlags>
-        <avrgcc.assembler.general.IncludePaths>
-          <ListValues>
-            <Value>../src</Value>
-            <Value>../src/asf/common/applications/user_application/user_board</Value>
-            <Value>../src/asf/common/boards</Value>
-            <Value>../src/asf/common/boards/user_board</Value>
-            <Value>../src/asf/common/utils</Value>
-            <Value>../src/asf/xmega/utils</Value>
-            <Value>../src/asf/xmega/utils/preprocessor</Value>
-            <Value>../src/config</Value>
-            <Value>../src/asf/xmega/drivers/aes</Value>
-            <Value>../src/asf/xmega/drivers/ac</Value>
-            <Value>../src/asf/xmega/drivers/adc</Value>
-            <Value>../src/asf/xmega/drivers/dac</Value>
-            <Value>../src/asf/xmega/drivers/cpu</Value>
-            <Value>../src/asf/xmega/drivers/pmic</Value>
-            <Value>../src/asf/xmega/drivers/sleep</Value>
-            <Value>../src/asf/xmega/drivers/ioport</Value>
-            <Value>../src/asf/xmega/drivers/dma</Value>
-            <Value>../src/asf/xmega/drivers/nvm</Value>
-            <Value>../src/asf/xmega/drivers/spi</Value>
-            <Value>../src/asf/xmega/drivers/rtc</Value>
-            <Value>../src/asf/xmega/drivers/tc</Value>
-            <Value>../src/asf/xmega/drivers/wdt</Value>
-            <Value>../src/asf/xmega/drivers/twi</Value>
-            <Value>../src/asf/xmega/drivers/usart</Value>
-            <Value>../src/asf/common/utils/stdio/stdio_serial</Value>
-            <Value>../src/asf/common/services/cpu</Value>
-            <Value>../src/asf/common/services/sleepmgr</Value>
-            <Value>../src/asf/common/services/gpio</Value>
-            <Value>../src/asf/common/services/hugemem</Value>
-            <Value>../src/asf/common/services/spi/xmega_spi</Value>
-            <Value>../src/asf/common/services/spi</Value>
-            <Value>../src/asf/common/services/clock</Value>
-            <Value>../src/asf/common/services/twi</Value>
-            <Value>../src/asf/common/services/serial</Value>
-          </ListValues>
-        </avrgcc.assembler.general.IncludePaths>
-      </AvrGcc>
+  <avrgcc.compiler.symbols.DefSymbols>
+    <ListValues>
+      <Value>BOARD=METORMOTE_NODE</Value>
+    </ListValues>
+  </avrgcc.compiler.symbols.DefSymbols>
+  <avrgcc.compiler.directories.IncludePaths>
+    <ListValues>
+      <Value>../src</Value>
+      <Value>../src/asf/common/applications/user_application/user_board</Value>
+      <Value>../src/asf/common/boards</Value>
+      <Value>../src/asf/common/utils</Value>
+      <Value>../src/asf/xmega/utils</Value>
+      <Value>../src/asf/xmega/utils/preprocessor</Value>
+      <Value>../src/config</Value>
+      <Value>../src/asf/xmega/drivers/aes</Value>
+      <Value>../src/asf/xmega/drivers/ac</Value>
+      <Value>../src/asf/xmega/drivers/adc</Value>
+      <Value>../src/asf/xmega/drivers/dac</Value>
+      <Value>../src/asf/xmega/drivers/cpu</Value>
+      <Value>../src/asf/xmega/drivers/pmic</Value>
+      <Value>../src/asf/xmega/drivers/sleep</Value>
+      <Value>../src/asf/xmega/drivers/ioport</Value>
+      <Value>../src/asf/xmega/drivers/dma</Value>
+      <Value>../src/asf/xmega/drivers/nvm</Value>
+      <Value>../src/asf/xmega/drivers/spi</Value>
+      <Value>../src/asf/xmega/drivers/rtc</Value>
+      <Value>../src/asf/xmega/drivers/tc</Value>
+      <Value>../src/asf/xmega/drivers/wdt</Value>
+      <Value>../src/asf/xmega/drivers/twi</Value>
+      <Value>../src/asf/xmega/drivers/usart</Value>
+      <Value>../src/asf/common/utils/stdio/stdio_serial</Value>
+      <Value>../src/asf/common/services/cpu</Value>
+      <Value>../src/asf/common/services/sleepmgr</Value>
+      <Value>../src/asf/common/services/gpio</Value>
+      <Value>../src/asf/common/services/hugemem</Value>
+      <Value>../src/asf/common/services/spi/xmega_spi</Value>
+      <Value>../src/asf/common/services/spi</Value>
+      <Value>../src/asf/common/services/clock</Value>
+      <Value>../src/asf/common/services/twi</Value>
+      <Value>../src/asf/common/services/serial</Value>
+      <Value>../src/asf/common/boards/metormote/node</Value>
+    </ListValues>
+  </avrgcc.compiler.directories.IncludePaths>
+  <avrgcc.compiler.optimization.level>Optimize (-O1)</avrgcc.compiler.optimization.level>
+  <avrgcc.compiler.optimization.OtherFlags>-fdata-sections</avrgcc.compiler.optimization.OtherFlags>
+  <avrgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>True</avrgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>
+  <avrgcc.compiler.optimization.DebugLevel>Maximum (-g3)</avrgcc.compiler.optimization.DebugLevel>
+  <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+  <avrgcc.compiler.miscellaneous.OtherFlags>-std=gnu99 -Wstrict-prototypes -Wmissing-prototypes -Werror-implicit-function-declaration -Wpointer-arith -mrelax</avrgcc.compiler.miscellaneous.OtherFlags>
+  <avrgcc.linker.optimization.GarbageCollectUnusedSections>True</avrgcc.linker.optimization.GarbageCollectUnusedSections>
+  <avrgcc.linker.optimization.RelaxBranches>True</avrgcc.linker.optimization.RelaxBranches>
+  <avrgcc.linker.miscellaneous.LinkerFlags>-Wl,--relax</avrgcc.linker.miscellaneous.LinkerFlags>
+  <avrgcc.assembler.general.AssemblerFlags>-mrelax</avrgcc.assembler.general.AssemblerFlags>
+  <avrgcc.assembler.general.IncludePaths>
+    <ListValues>
+      <Value>../src</Value>
+      <Value>../src/asf/common/applications/user_application/user_board</Value>
+      <Value>../src/asf/common/boards</Value>
+      <Value>../src/asf/common/boards/user_board</Value>
+      <Value>../src/asf/common/utils</Value>
+      <Value>../src/asf/xmega/utils</Value>
+      <Value>../src/asf/xmega/utils/preprocessor</Value>
+      <Value>../src/config</Value>
+      <Value>../src/asf/xmega/drivers/aes</Value>
+      <Value>../src/asf/xmega/drivers/ac</Value>
+      <Value>../src/asf/xmega/drivers/adc</Value>
+      <Value>../src/asf/xmega/drivers/dac</Value>
+      <Value>../src/asf/xmega/drivers/cpu</Value>
+      <Value>../src/asf/xmega/drivers/pmic</Value>
+      <Value>../src/asf/xmega/drivers/sleep</Value>
+      <Value>../src/asf/xmega/drivers/ioport</Value>
+      <Value>../src/asf/xmega/drivers/dma</Value>
+      <Value>../src/asf/xmega/drivers/nvm</Value>
+      <Value>../src/asf/xmega/drivers/spi</Value>
+      <Value>../src/asf/xmega/drivers/rtc</Value>
+      <Value>../src/asf/xmega/drivers/tc</Value>
+      <Value>../src/asf/xmega/drivers/wdt</Value>
+      <Value>../src/asf/xmega/drivers/twi</Value>
+      <Value>../src/asf/xmega/drivers/usart</Value>
+      <Value>../src/asf/common/utils/stdio/stdio_serial</Value>
+      <Value>../src/asf/common/services/cpu</Value>
+      <Value>../src/asf/common/services/sleepmgr</Value>
+      <Value>../src/asf/common/services/gpio</Value>
+      <Value>../src/asf/common/services/hugemem</Value>
+      <Value>../src/asf/common/services/spi/xmega_spi</Value>
+      <Value>../src/asf/common/services/spi</Value>
+      <Value>../src/asf/common/services/clock</Value>
+      <Value>../src/asf/common/services/twi</Value>
+      <Value>../src/asf/common/services/serial</Value>
+    </ListValues>
+  </avrgcc.assembler.general.IncludePaths>
+</AvrGcc>
     </ToolchainSettings>
     <MemorySettings>
       <MemorySegments>
-  <InitialStack IsEnabled="0">
-    <Address>0x1000</Address>
-  </InitialStack>
-</MemorySegments>
+        <InitialStack IsEnabled="0">
+          <Address>0x1000</Address>
+        </InitialStack>
+      </MemorySegments>
     </MemorySettings>
     <GenerateHexFile>True</GenerateHexFile>
     <GenerateEepFile>True</GenerateEepFile>

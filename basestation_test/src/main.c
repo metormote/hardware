@@ -148,7 +148,7 @@ ISR (PORTR_INT1_vect) {iflag=5;}  /* External Interrupt 1 */
 
 /* TWIC interrupt vectors */
 ISR (TWIC_TWIS_vect) {iflag=12;}  /* TWI Slave Interrupt */
-ISR (TWIC_TWIM_vect) {iflag=13;}  /* TWI Master Interrupt */
+/* ISR (TWIC_TWIM_vect) {iflag=13;}  /* TWI Master Interrupt */
 
 /* TCC0 interrupt vectors */
 //ISR (TCC0_OVF_vect) {iflag=14;}  /* Overflow Interrupt */

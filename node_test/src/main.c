@@ -73,7 +73,7 @@ static void init(void)
 	//usart_set_dre_interrupt_level(ANT_USART, USART_DREINTLVL_HI_gc);
 	
 	// Initialize debug usart driver in RS232 mode
-	usart_init_rs232(DEBUG_USART, &DEBUG_USART_OPTIONS);
+	//usart_init_rs232(DEBUG_USART, &DEBUG_USART_OPTIONS);
 	
 }
 
@@ -187,10 +187,10 @@ ISR (TWIE_TWIS_vect) {iflag=38;}  /* TWI Slave Interrupt */
 //ISR (TCE0_CCD_vect) {iflag=45;}  /* Compare or Capture D Interrupt */
 
 /* TCE1 interrupt vectors */
-ISR (TCE1_OVF_vect) {iflag=46;}  /* Overflow Interrupt */
-ISR (TCE1_ERR_vect) {iflag=47;}  /* Error Interrupt */
-ISR (TCE1_CCA_vect) {iflag=48;}  /* Compare or Capture A Interrupt */
-ISR (TCE1_CCB_vect) {iflag=49;}  /* Compare or Capture B Interrupt */
+//ISR (TCE1_OVF_vect) {iflag=46;}  /* Overflow Interrupt */
+//ISR (TCE1_ERR_vect) {iflag=47;}  /* Error Interrupt */
+//ISR (TCE1_CCA_vect) {iflag=48;}  /* Compare or Capture A Interrupt */
+//ISR (TCE1_CCB_vect) {iflag=49;}  /* Compare or Capture B Interrupt */
 
 /* USARTE0 interrupt vectors */
 ISR (USARTE0_RXC_vect) {iflag=50;}  /* Reception Complete Interrupt */
