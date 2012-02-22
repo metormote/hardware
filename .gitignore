@@ -2,3 +2,4 @@
 /basestation_test/Debug
 *.o
 *.d
+/node_test/Debug
