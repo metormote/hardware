@@ -51,16 +51,16 @@ void board_init(void)
 #endif
 
 	// configure nRESET for rf...
-	ioport_configure_pin(nRF24AP2_nRESET, IOPORT_DIR_OUTPUT | IOPORT_INIT_LOW);
+	ioport_configure_pin(BLE_nRESET, IOPORT_DIR_OUTPUT | IOPORT_INIT_LOW);
 	
 	// configure nSUSPEND for rf...
-	ioport_configure_pin(nRF24AP2_nSUSPEND, IOPORT_DIR_OUTPUT | IOPORT_INIT_LOW);
+	ioport_configure_pin(BLE_nSUSPEND, IOPORT_DIR_OUTPUT | IOPORT_INIT_LOW);
 
 	// configure SLEEP for rf...
-	ioport_configure_pin(nRF24AP2_SLEEP, IOPORT_DIR_OUTPUT | IOPORT_INIT_LOW);
+	ioport_configure_pin(BLE_SLEEP, IOPORT_DIR_OUTPUT | IOPORT_INIT_LOW);
 
 	// configure RTS for rf...
-	ioport_configure_pin(nRF24AP2_RTS, IOPORT_DIR_INPUT);
+	ioport_configure_pin(BLE_RTS, IOPORT_DIR_INPUT);
 	
 	
 	// configure ON/OFF for gprs

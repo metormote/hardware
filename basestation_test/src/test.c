@@ -16,9 +16,9 @@
 void test_main()
 {
 //	test_debug_usart();
-//	test_switch_and_leds();
+	test_switch_and_leds();
 //	test_rf();
-	test_gprs();
+//	test_gprs();
 //	test_flash();
 //	test_rtc();
 }
