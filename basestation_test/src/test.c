@@ -726,10 +726,8 @@ void test_rtc()
 
 }
 
-
-
 // internal adc...
-void test_adc()
+void test_adc(void)
 {
 	// TODO: implement...	
 //	adc_enable(ADCA);

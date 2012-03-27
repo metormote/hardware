@@ -63,7 +63,7 @@ int8_t gprs_receive(uint8_t* data, uint8_t size)
 }
 
 
-int8_t gprs_reset()
+int8_t gprs_reset(void)
 {
 	// TODO: implement...
 	gpio_set_pin_high(GPRS_RESET);

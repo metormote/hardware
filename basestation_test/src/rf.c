@@ -30,7 +30,7 @@ int8_t rf_send(uint8_t* data, uint8_t size)
 		{}
 	
 		// wait for rts to be deasserted...
-		while (gpio_pin_is_high(BLE_RTS))
+		while (gpio_pin_is_high(ANT_RTS))
 		{}
 		
 		(usart)->DATA = *p;
@@ -65,11 +65,11 @@ int8_t rf_reset(uint8_t state)
 {
 	if (state)
 	{
-		gpio_set_pin_low(BLE_nRESET);	
+		gpio_set_pin_low(ANT_nRESET);	
 	}
 	else
 	{
-		gpio_set_pin_high(BLE_nRESET);
+		gpio_set_pin_high(ANT_nRESET);
 	}
 	
 	return STATUS_OK;
@@ -79,11 +79,11 @@ int8_t rf_sleep(uint8_t state)
 {
 	if (state)
 	{
-		gpio_set_pin_high(BLE_SLEEP);	
+		gpio_set_pin_high(ANT_SLEEP);	
 	}
 	else
 	{
-		gpio_set_pin_low(BLE_SLEEP);
+		gpio_set_pin_low(ANT_SLEEP);
 	}
 	
 	return STATUS_OK;
@@ -94,15 +94,15 @@ int8_t rf_suspend(uint8_t state)
 {
 	if (state)
 	{
-		gpio_set_pin_high(BLE_SLEEP);
-		gpio_set_pin_low(BLE_nSUSPEND);
+		gpio_set_pin_high(ANT_SLEEP);
+		gpio_set_pin_low(ANT_nSUSPEND);
 		_delay_us(100);
-		gpio_set_pin_high(BLE_nSUSPEND);		
+		gpio_set_pin_high(ANT_nSUSPEND);		
 	}
 	else
 	{
-		gpio_set_pin_high(BLE_nSUSPEND);	// note: needed for init...
-		gpio_set_pin_low(BLE_SLEEP);
+		gpio_set_pin_high(ANT_nSUSPEND);	// note: needed for init...
+		gpio_set_pin_low(ANT_SLEEP);
 	}
 	return STATUS_OK;
 }

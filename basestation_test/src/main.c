@@ -91,7 +91,7 @@ static void init(void)
 	//usart_set_dre_interrupt_level(GPRS_USART, USART_DREINTLVL_HI_gc);
 	
 	// Initialize debug usart driver in RS232 mode
-	usart_init_rs232(DEBUG_USART, &DEBUG_USART_OPTIONS);
+	usart_init_rs232(BLE_USART, &DEBUG_USART_OPTIONS);
 	
 }
 
@@ -148,7 +148,7 @@ ISR (PORTR_INT1_vect) {iflag=5;}  /* External Interrupt 1 */
 
 /* TWIC interrupt vectors */
 ISR (TWIC_TWIS_vect) {iflag=12;}  /* TWI Slave Interrupt */
-/* ISR (TWIC_TWIM_vect) {iflag=13;}  /* TWI Master Interrupt */
+// ISR (TWIC_TWIM_vect) {iflag=13;}  /* TWI Master Interrupt */
 
 /* TCC0 interrupt vectors */
 //ISR (TCC0_OVF_vect) {iflag=14;}  /* Overflow Interrupt */
@@ -205,10 +205,10 @@ ISR (TWIE_TWIM_vect) {iflag=39;}  /* TWI Master Interrupt */
 //ISR (TCE0_CCD_vect) {iflag=45;}  /* Compare or Capture D Interrupt */
 
 /* TCE1 interrupt vectors */
-ISR (TCE1_OVF_vect) {iflag=46;}  /* Overflow Interrupt */
-ISR (TCE1_ERR_vect) {iflag=47;}  /* Error Interrupt */
-ISR (TCE1_CCA_vect) {iflag=48;}  /* Compare or Capture A Interrupt */
-ISR (TCE1_CCB_vect) {iflag=49;}  /* Compare or Capture B Interrupt */
+//ISR (TCE1_OVF_vect) {iflag=46;}  /* Overflow Interrupt */
+//ISR (TCE1_ERR_vect) {iflag=47;}  /* Error Interrupt */
+//ISR (TCE1_CCA_vect) {iflag=48;}  /* Compare or Capture A Interrupt */
+//ISR (TCE1_CCB_vect) {iflag=49;}  /* Compare or Capture B Interrupt */
 
 /* USARTE0 interrupt vectors */
 ISR (USARTE0_RXC_vect) {iflag=50;}  /* Reception Complete Interrupt */
