@@ -16,7 +16,7 @@ void test_main()
 {
 //	test_debug_usart();
 	test_switch_and_leds();
-	test_rf();
+//	test_rf();
 //	test_flash();
 //	test_rtc();
 }
@@ -36,7 +36,7 @@ void test_prologue(char* testcase)
 // - leds
 void test_switch_and_leds()
 {
-	test_prologue("Switch and LEDs...\n");
+//	test_prologue("Switch and LEDs...\n");
 
 	// init
 	gpio_set_pin_high(GPIO_LED_RED);
